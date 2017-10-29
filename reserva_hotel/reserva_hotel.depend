@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1509255989 source:c:\users\ravi\documents\github\fes-aed\reserva_hotel\main.c
+	<stdio.h>
+	<stdlib.h>
+	<locale.h>
+	<conio.h>
+
