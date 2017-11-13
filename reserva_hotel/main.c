@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <locale.h>
 #include <conio.h>
+#include "funcoes.h"
 #define ESC 27
 
 int main()
@@ -10,7 +11,7 @@ int main()
 
     char op=0;
     int msg = 0, num_quarto, dia, mes, ano, periodo;
-    long reserva[42][181];
+    long reserva[42][181];  //resera[id do quarto][dia] = cpf
     short quartos [42][2];
     float preco_diaria[3];
 
@@ -57,7 +58,7 @@ int main()
                 printf("Informe o número do quarto: ");
                 scanf("%d", &num_quarto);
                 printf("Data reservada do checking: ");
-                scanf("%d-%d-%d", &dia, &mes, &ano);
+                scanf("%d/%d/%d", &dia, &mes, &ano);
                 printf("Quantidade de dias reservados: ");
                 scanf("%d", &periodo);
                 //msg = excluir_reserva(reserva, num_quarto, dia, mes, ano, periodo );
