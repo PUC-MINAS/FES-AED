@@ -19,6 +19,7 @@ int main()
     float preco_diaria[3]; // preco_diaria[quant_camas-1] = preco
     int juliana;
     data dt;
+    int cpf, dig;
 
     //inicializa_dados (reserva, quartos, preco_diaria);
 
@@ -28,6 +29,17 @@ int main()
     printf("Juliana = %d\n", juliana);
     dt = juliana_to_gregoriana(juliana);
     printf("Gregoriana %d - %d\n\n", dt.dia, dt.mes);
+    system("pause");*/
+
+    //teste cpf
+    /*printf("Informe o CPF: ");
+    scanf("%d-%d", &cpf, &dig );
+    if ( valida_cpf(cpf, dig)){
+        printf("\nCPF ok\n");
+    }
+    else {
+        printf("\ninvalido\n");
+    }
     system("pause");*/
 
     while (op != ESC) {
@@ -75,7 +87,7 @@ int main()
                 scanf("%d/%d", &dia, &mes);
                 printf("Quantidade de dias reservados: ");
                 scanf("%d", &periodo);
-                //msg = excluir_reserva(reserva, num_quarto, dia, mes, ano, periodo );
+                //msg = excluir_reserva(reserva, num_quarto, dia, mes, periodo );
 
                 switch (msg) {
                     case 0:
@@ -128,18 +140,12 @@ int main()
 
                 }
 
-                switch (msg) {
-                    case 0:
-                        printf("Não existe quarto com esse número.\n");
-                        break;
-                    case 1:
-                        printf("Dados impressos.\n");
-                        break;
+                if (msg==0){
+                   printf("Não existe quarto com esse número.\n");
                 }
-
-
                 system("pause");
                 break;
+
             case ESC: //op=ESC
                 system("cls");
                 printf("Fechando programa");
