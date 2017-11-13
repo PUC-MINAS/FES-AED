@@ -5,20 +5,33 @@
 #include "funcoes.h"
 #define ESC 27
 
+
+
 int main()
 {
-    setlocale(LC_ALL,"portuguese");
-
+    setlocale(LC_ALL,"portuguese"); //seta caracteres portugueses
     char op=0;
-    int msg = 0, num_quarto, dia, mes, ano, periodo;
+    const int ano = 2018;
+    const int DATAINICIAL = gregoriana_to_juliana(1,1,2018);
+    int msg = 0, num_quarto, dia, mes, periodo;
     long reserva[42][181];  //resera[id do quarto][dia] = cpf
-    short quartos [42][2];
-    float preco_diaria[3];
+    short quartos [42][2]; //quartos[n][0] = numero do quarto; quartos[42][1] = quantidade de camas
+    float preco_diaria[3]; // preco_diaria[quant_camas-1] = preco
+    int juliana;
+    data dt;
 
     //inicializa_dados (reserva, quartos, preco_diaria);
 
+    //teste de data juliana
+    /*printf("testando data juliana\n");
+    juliana = gregoriana_to_juliana(25,03,2018);
+    printf("Juliana = %d\n", juliana);
+    dt = juliana_to_gregoriana(juliana);
+    printf("Gregoriana %d - %d\n\n", dt.dia, dt.mes);
+    system("pause");*/
+
     while (op != ESC) {
-        system("cls");
+        system("cls"); //limpa tela
         printf("---Reserva de Hotel---\n");
         printf("\nSelecione uma das opções abaixo.\n");
         printf("1 - Fazer reserva\n");
@@ -28,7 +41,7 @@ int main()
         op = getch();
 
         switch (op){
-            case 49:
+            case 49:  //op=1
                 system("cls");
                 printf("---Incluir Reserva---\n");
                 //msg = incluir_reserva (reserva, quartos, preco_diaria);
@@ -52,13 +65,14 @@ int main()
 
                 system("pause");
                 break;
-            case 50:
+
+            case 50:  //op=2
                 system("cls");
                 printf("---Cancelar Reserva---\n");
                 printf("Informe o número do quarto: ");
                 scanf("%d", &num_quarto);
-                printf("Data reservada do checking: ");
-                scanf("%d/%d/%d", &dia, &mes, &ano);
+                printf("Data reservada do checking: dia/mes");
+                scanf("%d/%d", &dia, &mes);
                 printf("Quantidade de dias reservados: ");
                 scanf("%d", &periodo);
                 //msg = excluir_reserva(reserva, num_quarto, dia, mes, ano, periodo );
@@ -80,7 +94,7 @@ int main()
 
                 system("pause");
                 break;
-            case 51:
+            case 51:  //op=3
                 system("cls");
                 printf("---Consultar Reservas---\n");
                 printf("1 - Consultar dados de um quarto\n");
@@ -126,7 +140,7 @@ int main()
 
                 system("pause");
                 break;
-            case ESC:
+            case ESC: //op=ESC
                 system("cls");
                 printf("Fechando programa");
                 exit(1);
