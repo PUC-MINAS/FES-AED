@@ -8,6 +8,12 @@ struct hotel {
 };
 typedef struct hotel htl;
 
+
+
+
+
+
+
 int main()
 {
     htl h;
