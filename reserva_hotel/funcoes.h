@@ -8,6 +8,21 @@ struct date {
 typedef struct date data;
 
 
+void cpfDoubleToInt (double *pcpfs, int *pcpf, int *pdig) {
+    double cpfs = *pcpfs;
+    int cpf = *pcpf;
+    int dig = *pdig;
+    cpf = (int)(cpfs/100);//  printf("---TesteFuncao---\n");  printf("CPFS = %f\n", cpfs); printf("CPF = %d\n", cpf); printf("CPFS - CPF = %d\n", (int)(cpfs - (double)cpf*100) );
+    dig = (int)(cpfs - (double)cpf*100);// printf("Dig = %d\n", dig );
+    *pcpf = cpf;
+    *pdig = dig;
+}
+
+void cpfIntToDouble (double *cpfs, int *cpf, int *dig){
+    //cpfs[1] = (double)cpf*100 + dig;
+    *cpfs = (double)*cpf*100 + *dig;
+}
+
 /*Funcao que trabalha junto com a valida_CPF*/
 int soma_cpf (int cpf, int dig) {
     int c, peso, soma, i;
@@ -37,8 +52,10 @@ int soma_cpf (int cpf, int dig) {
 }
 
 /*Funcao para validar CPF*/
-int valida_cpf (int cpf, int cpf_dig) {
+int valida_cpf (double cpfs) {
     /*printf("\n---Funcao valida_cpf---");*/
+    int cpf, cpf_dig;
+    cpfDoubleToInt(&cpfs, &cpf, &cpf_dig);
     int somatorio, dig1, dig2, r, dig;
     /*printf("\nCPF_dig: %d", cpf_dig);*/
     /*printf("\nCPF: %d", cpf);*/
@@ -167,7 +184,7 @@ int incluir_cadastro()
         printf("informe o cpf para a reservar");
         scanf("%d-%d",&cpf,&dgf);
 
-        }while(valida_cpf(cpf,dgf));
+        }while(valida_cpf(cpf));
 
 
 
