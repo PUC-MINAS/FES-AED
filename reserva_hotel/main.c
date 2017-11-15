@@ -4,6 +4,7 @@
 #include <conio.h>
 #include "funcoes.h"
 #define ESC 27
+#define MAX 5000
 
 
 
@@ -14,14 +15,30 @@ int main()
     const int ano = 2018;
     const int DATAINICIAL = gregoriana_to_juliana(1,1,2018);
     int msg = 0, num_quarto, dia, mes, periodo;
-    long reserva[42][181];  //resera[id do quarto][dia] = cpf
+    short reserva[42][181];  //resera[id do quarto][dia] = id_cpfs
     short quartos [42][2]; //quartos[n][0] = numero do quarto; quartos[42][1] = quantidade de camas
     float preco_diaria[3]; // preco_diaria[quant_camas-1] = preco
+    double cpfs[MAX];
     int juliana;
     data dt;
     int cpf, dig;
 
     //inicializa_dados (reserva, quartos, preco_diaria);
+
+    /*Teste de conversão de CPF entre double e int
+    printf("Tamanho vetor cpfs: %d\n", sizeof(cpfs));
+    printf("Tamanho matriz reserva: %d\n", sizeof(reserva));
+    printf("Tamanho matriz quartos: %d\n", sizeof(quartos));
+    cpfs[0] = 99999999999;
+    cpf = (int)(cpfs[0]/100);
+    dig = cpfs[0] - (double)cpf*100;
+    cpfDoubleToInt(&cpfs[0], &cpf, &dig);
+    printf("CPFS[0] = %f\n", cpfs[0]);
+    printf("Convertido CPFS[0] = %d-%d\n", cpf, dig );
+    //cpfs[1] = (double)cpf*100 + dig;
+    cpfIntToDouble(&cpfs[1], &cpf, &dig);
+    printf("CPFS[1] = %f\n", cpfs[1]);
+    system("pause");*/
 
     //teste de data juliana
     /*printf("testando data juliana\n");
@@ -33,8 +50,8 @@ int main()
 
     //teste cpf
     /*printf("Informe o CPF: ");
-    scanf("%d-%d", &cpf, &dig );
-    if ( valida_cpf(cpf, dig)){
+    scanf("%f", &cpfs[20] );
+    if ( valida_cpf(cpfs[20])){
         printf("\nCPF ok\n");
     }
     else {
@@ -54,9 +71,42 @@ int main()
 
         switch (op){
             case 49:  //op=1
+
                 system("cls");
+                int camas, dia_in, dia_out, mes_in, mes_out, check=0;
+                double bcpf;
                 printf("---Incluir Reserva---\n");
-                //msg = incluir_reserva (reserva, quartos, preco_diaria);
+                printf("Número de camas desejado? ");
+                scanf("%d", &camas);
+                printf("Data de entrada (dia/mes): ");
+                scanf("%d/%d", &dia_in, &mes_in);
+                printf("Data de saida (dia/mes): ");
+                scanf("%d/%d", &dia_out, &mes_out);
+
+                //check = print informacoes dos quartos disponíveis segundo o numero de camas solicitado. retornar true se tiver quartos que atendem a condição e false se não tiver
+
+                if (!check){
+                    printf("Não possui quartos disponíveis com %d cama(s) para este período\n", camas);
+                    //check = print informações de quartos disponíveis. retornar true se tiver quartos que atendem a condição e false se não tiver
+                    if (check){
+                        printf("Deseja continuar com a reserva?(s/n)");
+                        op = getch();
+                        if (op == 's') {
+                            printf("Digite o número do quarto: ");
+                            scanf("%d", &num_quarto);
+                        }
+                    }
+                }
+                else {
+                    printf("Digite o número do quarto: ");
+                    scanf("%d", &num_quarto);
+                    printf("Digite o seu cpf: ");
+                    scanf("%f", &bcpf);
+                }
+
+
+
+                //msg = incluir_reserva (reserva, quartos, preco_diaria, num_quarto, bcpf);
 
                 switch (msg) {
                     case 0:
