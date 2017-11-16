@@ -188,6 +188,17 @@ int gregoriana_to_juliana (int dia, int mes, int ano) {
 
 }
 
+int inicializa_dados  (short reserva[42][181],short quartos [42][2],float preco_diaria[3])
+{
+    int a,q;
+    for(a=0;a<3;a++)
+    {
+        printf("Defina os valores do quarto para %d cama(s): "a+1);
+        scanf(preco_diaria[a]);
+    }
+
+}
+
 int incluir_cadastro()
 {
 
