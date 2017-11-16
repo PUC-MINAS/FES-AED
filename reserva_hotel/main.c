@@ -26,7 +26,7 @@ int main()
 
     quartos[0][0] = 100;
 
-    //inicializa_dados (reserva, quartos, preco_diaria);
+    inicializa_dados (reserva, quartos, preco_diaria);
 
     /*Teste de conversão de CPF entre double e int
     printf("Tamanho vetor cpfs: %d\n", sizeof(cpfs));
