@@ -1,12 +1,81 @@
 #ifndef FUNCOES_H_INCLUDED
 #define FUNCOES_H_INCLUDED
 
+/*estrutura de data - usado para conversão de data juliana para gregoriana*/
 struct date {
    int dia;
    int mes;
 };
 typedef struct date data;
 
+/*funcao que ler número de quartos digitado pelo usuário*/
+int readNumQuarto (short quartos [42][2]) {
+    int num_quarto;
+    printf("Digite o número do quarto: ");
+    scanf("%d", &num_quarto);
+    while (!validaNumQuarto(num_quarto, quartos)) {
+        printf("\n###Número de quarto inválido!###\n\n");
+        printf("Digite o número do quarto: ");
+        scanf("%d", &num_quarto);
+    }
+    return num_quarto;
+}
+
+/*funcao que ler número de camas digitado pelo usuário*/
+int readNumCamas (void){
+    int camas;
+    printf("Número de camas desejado? ");
+    scanf("%d", &camas);
+    while ( camas < 1 || camas > 3 ){
+        printf("\n###Número de camas inválido!###\n\n");
+        printf("Número de camas desejado? ");
+        scanf("%d", &camas);
+    }
+    return camas;
+}
+
+/*Função que valida número do quarto*/
+int validaNumQuarto (int num, short quartos[42][2]) {
+    int i;
+
+    for (i = 0; i < 42; i++) {
+        if (num == quartos[i][0]) {
+            return 1;
+        }
+    }
+    return 0;
+}
+
+/*Função para validação de data*/
+int validaData(int dia, int mes, int ano){
+    if ((dia >= 1 && dia <= 31) && (mes >= 1 && mes <= 12) && (ano >= 1900 && ano <= 2100)) //verifica se os numeros sao validos
+        {
+            if ((dia == 29 && mes == 2) && ((ano % 4) == 0)) //verifica se o ano e bissexto
+            {
+                return 1;
+            }
+            if (dia <= 28 && mes == 2) //verifica o mes de feveireiro
+            {
+                return 1;
+            }
+            if ((dia <= 30) && (mes == 4 || mes == 6 || mes == 9 || mes == 11)) //verifica os meses de 30 dias
+            {
+                return 1;
+            }
+            if ((dia <=31) && (mes == 1 || mes == 3 || mes == 5 || mes == 7 || mes ==8 || mes == 10 || mes == 12)) //verifica os meses de 31 dias
+            {
+                return 1;
+            }
+            else
+            {
+                return 0;
+            }
+      }
+       else
+           {
+                return 0;
+           }
+}
 
 void cpfDoubleToInt (double *pcpfs, int *pcpf, int *pdig) {
     double cpfs = *pcpfs;
@@ -53,30 +122,30 @@ int soma_cpf (int cpf, int dig) {
 
 /*Funcao para validar CPF*/
 int valida_cpf (double cpfs) {
-    /*printf("\n---Funcao valida_cpf---");*/
+    //printf("\n---Funcao valida_cpf---");
     int cpf, cpf_dig;
     cpfDoubleToInt(&cpfs, &cpf, &cpf_dig);
     int somatorio, dig1, dig2, r, dig;
-    /*printf("\nCPF_dig: %d", cpf_dig);*/
-    /*printf("\nCPF: %d", cpf);*/
-    somatorio = soma_cpf(cpf, -1); /*printf("\nsomatorio: %d", somatorio);*/
-    dig1 = 11 - (somatorio % 11); /*printf("\ndig1: %d", dig1);*/
+    //printf("\nCPF_dig: %d", cpf_dig);
+    //printf("\nCPF: %d", cpf);
+    somatorio = soma_cpf(cpf, -1); //printf("\nsomatorio: %d", somatorio);
+    dig1 = 11 - (somatorio % 11); //printf("\ndig1: %d", dig1);
     if (dig1 > 9) {
-        dig1 = 0; /*printf("\ndig1: %d", dig1);*/
+        dig1 = 0; //printf("\ndig1: %d", dig1);
     }
-    somatorio = soma_cpf(cpf , dig1); /*printf("\nsomatorio: %d", somatorio);*/
-    dig2 = 11 - (somatorio % 11); /*printf("\ndig2: %d", dig2);*/
+    somatorio = soma_cpf(cpf , dig1); //printf("\nsomatorio: %d", somatorio);
+    dig2 = 11 - (somatorio % 11); //printf("\ndig2: %d", dig2);
     if (dig2 > 9) {
-        dig2 = 0; /*printf("\ndig2: %d", dig2);*/
+        dig2 = 0; //printf("\ndig2: %d", dig2);
     }
-    dig = (dig1*10) + dig2; /*printf("\ndig: %d", dig);*/
+    dig = (dig1*10) + dig2; //printf("\ndig: %d", dig);
     if (cpf_dig == dig) {
         r = 1;
     }
     else {
         r = 0;
     }
-    /*printf("\ncpf_dig: %d, dig: %d", cpf_dig, dig);*/
+    //printf("\ncpf_dig: %d, dig: %d", cpf_dig, dig);
     return r;
 }
 
