@@ -26,6 +26,19 @@ int main()
 
     quartos[0][0] = 100;
 
+    //teste de referenciar matriz reserva por data juliana
+    /*int dia1 = 2, mes1= 1;
+    int dia2 = 10, mes2= 1;
+    int conv_juli1 = gregoriana_to_juliana(dia1, mes1, 2018);
+    int conv_juli2 = gregoriana_to_juliana(dia2, mes2, 2018);
+    printf("Juli1 = %d\n", conv_juli1);
+    printf("Juli2 = %d\n", conv_juli2);
+    printf("Juli1 - Juli2 = %d\n", conv_juli2 - conv_juli1);
+    printf("Posicão= %d\n", conv_juli2 - DATAINICIAL);*/
+
+
+    system("pause");
+
     //inicializa_dados (reserva, quartos, preco_diaria);
 
     /*Teste de conversão de CPF entre double e int
