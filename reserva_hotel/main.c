@@ -26,6 +26,11 @@ int main()
 
     quartos[0][0] = 100;
 
+    //teste indexToDate
+    /*int index = 5;
+    indexToData(index, &dia, &mes);
+    printf("index = %d, dia= %d, mes= %d", index, dia, mes);
+    system("pause");*/
 
     inicializa_dados (reserva, quartos, preco_diaria);
     //teste de referenciar matriz reserva por data juliana
@@ -216,6 +221,8 @@ int main()
                         printf("---Consultar dados de um quarto---\n");
 
                         num_quarto = readNumQuarto(quartos);
+
+                        ImprimirReserva(num_quarto, reserva, quartos, preco_diaria, cpfs);
 
                         //msg = imprimir_reserva(reserva, quartos, preco_diaria, op, num_quarto );
 
