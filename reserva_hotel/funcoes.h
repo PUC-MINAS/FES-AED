@@ -15,7 +15,6 @@ int dataToIndex (int dia, int mes) {
 }
 int tempo_reserva (int dia_in,int mes_in,int dia_out,int mes_out) {
     int juli = gregoriana_to_juliana(dia_in, mes_in, 2018);
-    int
     return juli - (gregoriana_to_juliana(dia_out,mes_out,2018));
 }
 
@@ -234,14 +233,60 @@ int inicializa_dados  (short reserva[42][181],short quartos [42][2],float preco_
 
 }
 
-int incluir_reserva (short reserva[42][181], short quartos [42][2], float preco_diaria[3], num_quarto, bcpf,dia_in,mes_in,dia_out,mes_out);
+int incluir_reserva (short reserva[42][181], short quartos [42][2], float preco_diaria[3],int num_quarto,double bcpf,int dia_in,int mes_in,int dia_out,int mes_out)
 {
-int  ini_vet=dataToIndex(dia_in,mes_in);
-int tam_vet=tempo_reserva(dia_in,mes_in,dia_out,mes_out);
-int i;
 
-    for(i=0;i<100;i++)
+int  ini_vetor=dataToIndex(dia_in,mes_in);
+int final_vetor=dataToIndex(dia_out,mes_out);
+int tam_vet=tempo_reserva(dia_in,mes_in,dia_out,mes_out);
+int i,aux,vaga,j;
+int qaux[14];
+for(i=0;i<14;i++)
+{
+   qaux[i]=-1;
+}
+
+
+
+    for(i=0;i<42;i++)
     {
+
+    if(quartos[0][1]==num_quarto)
+       {
+        qaux[aux]=01;
+        aux++;
+       }else if(quartos[i][1]==num_quarto)
+       {
+          qaux[aux]=i*10;
+       aux++;
+
+       }
+
+    };
+    for(i=0;i<42;i++)
+    {
+       if(reserva[i][0]==qaux[i])
+        {
+         for(j=ini_vetor;j<final_vetor;j++)
+         {
+            if(reserva[i][j]!=-1)
+            {
+               vaga=1;
+
+            }
+         }
+
+
+
+
+       }
+
+    }
+
+
+
+
+
 
 
 
@@ -251,6 +296,22 @@ int i;
 
 
 
+
+
+    int ImprimirReserva (int numquarto, short reserva[42][181], short quartos[42][2], float precodiaria[3], double *cpfs)
+    {
+        int numcamas;
+        int numandar = (int)(numquarto/100);
+        int i;
+        for (i=0; i<42; i++)
+        {
+            if (numquarto == quartos[i][0])
+            {
+                numcamas = quartos[i][1];
+                break;
+            }
+        }
+        printf("%d° andar, quarto %d (%d camas)", numandar, numquarto, numcamas);
     }
 
 
