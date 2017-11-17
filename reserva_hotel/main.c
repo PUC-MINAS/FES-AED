@@ -36,7 +36,8 @@ int main()
     printf("Juli1 = %d\n", conv_juli1);
     printf("Juli2 = %d\n", conv_juli2);
     printf("Juli1 - Juli2 = %d\n", conv_juli2 - conv_juli1);
-    printf("Posicão= %d\n", conv_juli2 - DATAINICIAL);*/
+    printf("Posicão= %d\n", dataToIndex(30,6));
+    system("pause");*/
 
 
     /*Teste de conversão de CPF entre double e int
@@ -86,7 +87,7 @@ int main()
         op = getch();
 
         switch (op){
-            case 49:  //op=1
+            case '1':  //op=1
 
                 system("cls");
                 int camas, dia_in, dia_out, mes_in, mes_out, check=1, msg= 0;
@@ -100,6 +101,11 @@ int main()
 
                 printf("Data de saída (dia/mes): ");
                 readData(&dia_out, &mes_out);
+                while (gregoriana_to_juliana(dia_out, mes_out, 2018) < gregoriana_to_juliana(dia_in, mes_in, 2018) ) {
+                    printf("###Data de saída não pode menor do que a data de entrada!###\n\n");
+                    printf("Data de saída (dia/mes): ");
+                    readData(&dia_out, &mes_out);
+                }
 
                 //check = print informacoes dos quartos disponíveis segundo o numero de camas solicitado. retornar true se tiver quartos que atendem a condição e false se não tiver
 
@@ -120,7 +126,7 @@ int main()
                         if (check) {
                             printf("Deseja continuar com a reserva?(s/n)");
                             op = getch();
-                            if (op == 's') {
+                            if (op == 's' || op == 'S') {
 
                                 num_quarto = readNumQuarto(quartos);
 
