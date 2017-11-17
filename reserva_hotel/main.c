@@ -39,9 +39,6 @@ int main()
     printf("Posicão= %d\n", conv_juli2 - DATAINICIAL);*/
 
 
-    //system("pause");
-
-
     /*Teste de conversão de CPF entre double e int
     printf("Tamanho vetor cpfs: %d\n", sizeof(cpfs));
     printf("Tamanho matriz reserva: %d\n", sizeof(reserva));
@@ -99,21 +96,10 @@ int main()
                 camas = readNumCamas();
 
                 printf("Data de entrada (dia/mes): ");
-                scanf("%d/%d", &dia_in, &mes_in);
-                while (!validaData(dia_in, mes_in, 2018)) {
-                    printf("\n###Data inválida!###\n\n");
-                    printf("Data de entrada (dia/mes): ");
-                    scanf("%d/%d", &dia_in, &mes_in);
-                }
+                readData(&dia_in, &mes_in);
 
-
-                printf("Data de saida (dia/mes): ");
-                scanf("%d/%d", &dia_out, &mes_out);
-                while (!validaData(dia_out, mes_out, 2018)) {
-                    printf("\n###Data inválida!###\n\n");
-                    printf("Data de entrada (dia/mes): ");
-                    scanf("%d/%d", &dia_out, &mes_out);
-                }
+                printf("Data de saída (dia/mes): ");
+                readData(&dia_out, &mes_out);
 
                 //check = print informacoes dos quartos disponíveis segundo o numero de camas solicitado. retornar true se tiver quartos que atendem a condição e false se não tiver
 
@@ -121,13 +107,8 @@ int main()
 
                     num_quarto = readNumQuarto(quartos);
 
-                    printf("Digite o seu cpf: ");
-                    scanf("%lf", &bcpf);
-                    while (!valida_cpf(bcpf)) {
-                        printf("\n###CPF inválido!###\n\n");
-                        printf("Digite o seu cpf: ");
-                        scanf("%lf", &bcpf);
-                    }
+                    bcpf = readCpf();
+
                     //msg = incluir_reserva (reserva, quartos, preco_diaria, num_quarto, bcpf);
                 }
                 else {
@@ -143,13 +124,7 @@ int main()
 
                                 num_quarto = readNumQuarto(quartos);
 
-                                printf("Digite o seu cpf: ");
-                                scanf("%lf", &bcpf);
-                                while (!valida_cpf(bcpf)) {
-                                    printf("\n###CPF inválido!###\n\n");
-                                    printf("Digite o seu cpf: ");
-                                    scanf("%lf", &bcpf);
-                                }
+                                bcpf = readCpf();
                                 //msg = incluir_reserva (reserva, quartos, preco_diaria, num_quarto, bcpf);
                             }
                             else {
@@ -189,12 +164,14 @@ int main()
 
                 num_quarto = readNumQuarto(quartos);
 
-                printf("Data reservada do checking: dia/mes");
-                scanf("%d/%d", &dia, &mes);
+                printf("Data reservada do checking (dia/mes): ");
+                readData(&dia, &mes);
+
                 printf("Quantidade de dias reservados: ");
                 scanf("%d", &periodo);
-                printf("Digite o seu cpf: ");
-                scanf("%f", &bcpf);
+
+                bcpf = readCpf();
+
                 //msg = excluir_reserva(reserva, num_quarto, dia, mes, periodo, bcpf, cpfs );
 
                 switch (msg) {
@@ -217,6 +194,7 @@ int main()
 
                 system("pause");
                 break;
+
             case 51:  //op=3
                 system("cls");
                 printf("---Consultar Reservas---\n");
@@ -234,6 +212,7 @@ int main()
                         num_quarto = readNumQuarto(quartos);
 
                         //msg = imprimir_reserva(reserva, quartos, preco_diaria, op, num_quarto );
+
                         break;
                     case 50:
                         system("cls");
