@@ -8,6 +8,29 @@ struct date {
 };
 typedef struct date data;
 
+/*Funcao que lê um cpf e valida*/
+double readCpf () {
+    double cpf;
+    printf("Digite o seu cpf: ");
+    scanf("%lf", &cpf);
+    while (!valida_cpf(cpf)) {
+        printf("\n###CPF inválido!###\n\n");
+        printf("Digite o seu cpf: ");
+        scanf("%lf", &cpf);
+    }
+    return cpf;
+}
+
+/*Função que lê dia e mês digitado pelo usuário e faz validação*/
+void readData (int *dia, int *mes) {
+    scanf("%d/%d", dia, mes);
+    while (!validaData(*dia, *mes, 2018)) {
+        printf("\n###Data inválida!###\n\n");
+        printf("Data de entrada (dia/mes): ");
+        scanf("%d/%d", dia, mes);
+    }
+}
+
 /*funcao que ler número de quartos digitado pelo usuário*/
 int readNumQuarto (short quartos [42][2]) {
     int num_quarto;
@@ -183,9 +206,6 @@ int gregoriana_to_juliana (int dia, int mes, int ano) {
 	          dia - 32075 ;
 
     return juliana ;
-
-
-
 }
 
 int inicializa_dados  (short reserva[42][181],short quartos [42][2],float preco_diaria[3])
@@ -193,8 +213,8 @@ int inicializa_dados  (short reserva[42][181],short quartos [42][2],float preco_
     int a,q;
     for(a=0;a<3;a++)
     {
-        printf("Defina os valores do quarto para %d cama(s): "a+1);
-        scanf(preco_diaria[a]);
+        printf("Defina os valores do quarto para %d cama(s): ",a+1);
+        scanf("%f", &preco_diaria[a]);
     }
 
 }
