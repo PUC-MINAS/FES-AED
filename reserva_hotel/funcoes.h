@@ -302,6 +302,22 @@ int incluir_cadastro()
 
     }
 
+    int ImprimirReserva (int numquarto, short reserva[42][181], short quartos[42][2], float precodiaria[3], double *cpfs)
+    {
+        int numcamas;
+        int numandar = (int)(numquarto/100);
+        int i;
+        for (i=0; i<42; i++)
+        {
+            if (numquarto == quartos[i][0])
+            {
+                numcamas = quartos[i][1];
+                break;
+            }
+        }
+        printf("%d° andar, quarto %d (%d camas)", numandar, numquarto, numcamas);
+    }
+
 
 
 
