@@ -8,6 +8,12 @@ struct date {
 };
 typedef struct date data;
 
+
+int dataToIndex (int dia, int mes) {
+    int juli = gregoriana_to_juliana(dia, mes, 2018);
+    return juli - (gregoriana_to_juliana(1,1,2018));
+}
+
 /*Funcao que lê um cpf e valida*/
 double readCpf () {
     double cpf;
@@ -24,7 +30,7 @@ double readCpf () {
 /*Função que lê dia e mês digitado pelo usuário e faz validação*/
 void readData (int *dia, int *mes) {
     scanf("%d/%d", dia, mes);
-    while (!validaData(*dia, *mes, 2018)) {
+    while (!validaData(*dia, *mes, 2018) || *mes >6) {
         printf("\n###Data inválida!###\n\n");
         printf("Data de entrada (dia/mes): ");
         scanf("%d/%d", dia, mes);
