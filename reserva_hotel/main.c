@@ -217,6 +217,8 @@ int main()
 
                         num_quarto = readNumQuarto(quartos);
 
+                        ImprimirReserva(num_quarto, reserva, quartos, preco_diaria, cpfs);
+
                         //msg = imprimir_reserva(reserva, quartos, preco_diaria, op, num_quarto );
 
                         break;
