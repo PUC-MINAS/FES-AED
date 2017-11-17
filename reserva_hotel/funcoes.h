@@ -8,6 +8,30 @@ struct date {
 };
 typedef struct date data;
 
+void indexToData (int index, int *dia, int *mes) {
+    data juliana_to_gregoriana (int juliana);
+    int datainicial = gregoriana_to_juliana(1,1,2018);
+    int juli = datainicial + index;
+    data dt;
+    //dt =  juliana_to_gregoriana(juli);
+    *dia = dt.dia;
+    *mes = dt.mes;
+}
+
+
+int dataToIndex (int dia, int mes) {
+    int juli = gregoriana_to_juliana(dia, mes, 2018);
+    return juli - (gregoriana_to_juliana(1,1,2018));
+}
+int tempo_reserva (int dia_in,int mes_in,int dia_out,int mes_out) {
+    int juli = gregoriana_to_juliana(dia_in, mes_in, 2018);
+    return juli - (gregoriana_to_juliana(dia_out,mes_out,2018));
+}
+
+
+
+
+
 /*Funcao que lê um cpf e valida*/
 double readCpf () {
     double cpf;
@@ -24,7 +48,7 @@ double readCpf () {
 /*Função que lê dia e mês digitado pelo usuário e faz validação*/
 void readData (int *dia, int *mes) {
     scanf("%d/%d", dia, mes);
-    while (!validaData(*dia, *mes, 2018)) {
+    while (!validaData(*dia, *mes, 2018) || *mes >6) {
         printf("\n###Data inválida!###\n\n");
         printf("Data de entrada (dia/mes): ");
         scanf("%d/%d", dia, mes);
@@ -219,87 +243,39 @@ int inicializa_dados  (short reserva[42][181],short quartos [42][2],float preco_
 
 }
 
-int incluir_cadastro()
+/*int incluir_reserva (short reserva[42][181], short quartos [42][2], float preco_diaria[3], num_quarto, bcpf,dia_in,mes_in,dia_out,mes_out);
 {
+int  ini_vet=dataToIndex(dia_in,mes_in);
+int tam_vet=tempo_reserva(dia_in,mes_in,dia_out,mes_out);
+int i;
 
-
-
-
-
-    int cama,dia,mes,val,dgf,cpf;
-    //dgf usada como auxiliador do digito verificador do cpf
-    // val variavel que recebe 0 ou 1 sendo 0 falso e 1 para verdadeiro na validacao de data
-
-
-
-    do
+    for(i=0;i<100;i++)
     {
-        printf("\n informe o numero de camas: ") ;
-        scanf("%d",&cama);
-
-        if(cama<1||cama>3)
-        {
-            printf("Numero de camas invalido digite novamente ..");
-
-        }
-
-    }while(cama<1||cama>3);
 
 
-    do
+
+    }
+
+
+
+
+
+    }*/
+
+    int ImprimirReserva (int numquarto, short reserva[42][181], short quartos[42][2], float precodiaria[3], double *cpfs)
     {
-        printf("informe o dia :");
-        scanf("%d",&dia);
-        system("cls");
-        do
+        int numcamas;
+        int numandar = (int)(numquarto/100);
+        int i;
+        for (i=0; i<42; i++)
         {
-            printf("informe o mes da reserva:");
-            scanf("%d",&mes);
-            val=1;
-
-            if(mes<1||mes>12)
+            if (numquarto == quartos[i][0])
             {
-                printf("mes invalido digite novamente ");
+                numcamas = quartos[i][1];
+                break;
             }
-
-            }while(mes<1||mes>12);
-
-            if(mes%2==0||dia==31)
-            {
-                printf("data invalida ");
-                val=0;
-            }
-            else if(mes==2||dia>28)
-            {
-                printf("data invalida ");
-                val=0;
-            }
-
-
-
         }
-        while(val==0);
-
-        do{
-        printf("informe o cpf para a reservar");
-        scanf("%d-%d",&cpf,&dgf);
-
-        }while(valida_cpf(cpf));
-
-
-
-
-
-
-
-
-
-        return 0;
-
-
-
-
-
+        printf("%d° andar, quarto %d (%d camas)", numandar, numquarto, numcamas);
     }
 
 
