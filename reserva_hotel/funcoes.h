@@ -1,7 +1,7 @@
 #ifndef FUNCOES_H_INCLUDED
 #define FUNCOES_H_INCLUDED
 
-/*estrutura de data - usado para conversão de data juliana para gregoriana*/
+/*estrutura de data - usado para conversÃ£o de data juliana para gregoriana*/
 struct date {
    int dia;
    int mes;
@@ -32,56 +32,56 @@ int tempo_reserva (int dia_in,int mes_in,int dia_out,int mes_out) {
 
 
 
-/*Funcao que lê um cpf e valida*/
+/*Funcao que lÃª um cpf e valida*/
 double readCpf () {
     double cpf;
     printf("Digite o seu cpf: ");
     scanf("%lf", &cpf);
     while (!valida_cpf(cpf)) {
-        printf("\n###CPF inválido!###\n\n");
+        printf("\n###CPF invÃ¡lido!###\n\n");
         printf("Digite o seu cpf: ");
         scanf("%lf", &cpf);
     }
     return cpf;
 }
 
-/*Função que lê dia e mês digitado pelo usuário e faz validação*/
+/*FunÃ§Ã£o que lÃª dia e mÃªs digitado pelo usuÃ¡rio e faz validaÃ§Ã£o*/
 void readData (int *dia, int *mes) {
     scanf("%d/%d", dia, mes);
     while (!validaData(*dia, *mes, 2018) || *mes >6) {
-        printf("\n###Data inválida!###\n\n");
+        printf("\n###Data invÃ¡lida!###\n\n");
         printf("Data de entrada (dia/mes): ");
         scanf("%d/%d", dia, mes);
     }
 }
 
-/*funcao que ler número de quartos digitado pelo usuário*/
+/*funcao que ler nÃºmero de quartos digitado pelo usuÃ¡rio*/
 int readNumQuarto (short quartos [42][2]) {
     int num_quarto;
-    printf("Digite o número do quarto: ");
+    printf("Digite o nÃºmero do quarto: ");
     scanf("%d", &num_quarto);
     while (!validaNumQuarto(num_quarto, quartos)) {
-        printf("\n###Número de quarto inválido!###\n\n");
-        printf("Digite o número do quarto: ");
+        printf("\n###NÃºmero de quarto invÃ¡lido!###\n\n");
+        printf("Digite o nÃºmero do quarto: ");
         scanf("%d", &num_quarto);
     }
     return num_quarto;
 }
 
-/*funcao que ler número de camas digitado pelo usuário*/
+/*funcao que ler nÃºmero de camas digitado pelo usuÃ¡rio*/
 int readNumCamas (void){
     int camas;
-    printf("Número de camas desejado? ");
+    printf("NÃºmero de camas desejado? ");
     scanf("%d", &camas);
     while ( camas < 1 || camas > 3 ){
-        printf("\n###Número de camas inválido!###\n\n");
-        printf("Número de camas desejado? ");
+        printf("\n###NÃºmero de camas invÃ¡lido!###\n\n");
+        printf("NÃºmero de camas desejado? ");
         scanf("%d", &camas);
     }
     return camas;
 }
 
-/*Função que valida número do quarto*/
+/*FunÃ§Ã£o que valida nÃºmero do quarto*/
 int validaNumQuarto (int num, short quartos[42][2]) {
     int i;
 
@@ -93,7 +93,7 @@ int validaNumQuarto (int num, short quartos[42][2]) {
     return 0;
 }
 
-/*Função para validação de data*/
+/*FunÃ§Ã£o para validaÃ§Ã£o de data*/
 int validaData(int dia, int mes, int ano){
     if ((dia >= 1 && dia <= 31) && (mes >= 1 && mes <= 12) && (ano >= 1900 && ano <= 2100)) //verifica se os numeros sao validos
         {
@@ -243,7 +243,8 @@ int inicializa_dados  (short reserva[42][181],short quartos [42][2],float preco_
 
 }
 
-/*int incluir_reserva (short reserva[42][181], short quartos [42][2], float preco_diaria[3], num_quarto, bcpf,dia_in,mes_in,dia_out,mes_out);
+int incluir_reserva (short reserva[42][181], short quartos [42][2], float preco_diaria[3], num_quarto, bcpf,dia_in,mes_in,dia_out,mes_out);
+
 {
 int  ini_vet=dataToIndex(dia_in,mes_in);
 int tam_vet=tempo_reserva(dia_in,mes_in,dia_out,mes_out);
@@ -260,7 +261,8 @@ int i;
 
 
 
-    }*/
+
+    }
 
     int ImprimirReserva (int numquarto, short reserva[42][181], short quartos[42][2], float precodiaria[3], double *cpfs)
     {
@@ -275,7 +277,7 @@ int i;
                 break;
             }
         }
-        printf("%d° andar, quarto %d (%d camas)", numandar, numquarto, numcamas);
+        printf("%dÂ° andar, quarto %d (%d camas)", numandar, numquarto, numcamas);
     }
 
 
