@@ -8,7 +8,7 @@ struct date {
 };
 typedef struct date data;
 
-
+/*Converte data para o index da estrutura de reserva*/
 int dataToIndex (int dia, int mes) {
     int juli = gregoriana_to_juliana(dia, mes, 2018);
     return juli - (gregoriana_to_juliana(1,1,2018));
@@ -66,7 +66,6 @@ int readNumCamas (void){
 /*Função que valida número do quarto*/
 int validaNumQuarto (int num, short quartos[42][2]) {
     int i;
-
     for (i = 0; i < 42; i++) {
         if (num == quartos[i][0]) {
             return 1;
