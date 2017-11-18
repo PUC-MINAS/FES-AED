@@ -169,17 +169,17 @@ int main()
                 system("pause");
                 break;
 
-            case 50:  //op=2
+            case '2':  //op=2
                 system("cls");
                 printf("---Cancelar Reserva---\n");
 
                 num_quarto = readNumQuarto(quartos);
 
-                printf("Data reservada do checking (dia/mes): ");
-                readData(&dia, &mes);
+                printf("Data do check in (dia/mes): ");
+                readData(&dia_in, &mes_in);
 
-                printf("Quantidade de dias reservados: ");
-                scanf("%d", &periodo);
+                printf("Data do check out (dia/mes): ");
+                scanf("%d", &dia_out, &mes_out);
 
                 bcpf = readCpf();
 
@@ -220,7 +220,7 @@ int main()
                         system("cls");
                         printf("---Consultar dados de um quarto---\n");
 
-                        num_quarto = readNumQuarto(quartos);
+                        //num_quarto = readNumQuarto(quartos);
 
                         ImprimirReserva(num_quarto, reserva, quartos, preco_diaria, cpfs);
 
