@@ -1,14 +1,14 @@
 #ifndef FUNCOES_H_INCLUDED
 #define FUNCOES_H_INCLUDED
 
-/*estrutura de data - usado para conversÃ£o de data juliana para gregoriana*/
+/*estrutura de data - usado para conversão de data juliana para gregoriana*/
 struct date {
    int dia;
    int mes;
 };
 typedef struct date data;
 
-/*FunÃ§Ã£o que converte index para data*/
+/*Função que converte index para data*/
 void indexToData (int index, int *dia, int *mes) {
     data juliana_to_gregoriana (int juliana);
     int datainicial = gregoriana_to_juliana(1,1,2018);
@@ -19,13 +19,13 @@ void indexToData (int index, int *dia, int *mes) {
     *mes = dt.mes;
 }
 
-/*funÃ§Ã£o que converte data para index*/
+/*função que converte data para index*/
 int dataToIndex (int dia, int mes) {
     int juli = gregoriana_to_juliana(dia, mes, 2018);
     return juli - (gregoriana_to_juliana(1,1,2018));
 }
 
-/*funÃ§Ã£o que retorna periodo de dias*/
+/*função que retorna periodo de dias*/
 int tempo_reserva (int dia_in,int mes_in,int dia_out,int mes_out) {
     int juli = gregoriana_to_juliana(dia_in, mes_in, 2018);
     return juli - (gregoriana_to_juliana(dia_out,mes_out,2018));
@@ -35,56 +35,43 @@ int tempo_reserva (int dia_in,int mes_in,int dia_out,int mes_out) {
 
 
 
-/*Funcao que lÃª um cpf e valida*/
-double readCpf () {
-    double cpf;
-    printf("Digite o seu cpf: ");
-    scanf("%lf", &cpf);
-    while (!valida_cpf(cpf)) {
-        printf("\n###CPF invÃ¡lido!###\n\n");
-        printf("Digite o seu cpf: ");
-        scanf("%lf", &cpf);
-    }
-    return cpf;
-}
-
-/*FunÃ§Ã£o que lÃª dia e mÃªs digitado pelo usuÃ¡rio e faz validaÃ§Ã£o*/
+/*Função que lê dia e mês digitado pelo usuário e faz validação*/
 void readData (int *dia, int *mes) {
     scanf("%d/%d", dia, mes);
     while (!validaData(*dia, *mes, 2018) || *mes >6) {
-        printf("\n###Data invÃ¡lida!###\n\n");
+        printf("\n###Data inválida!###\n\n");
         printf("Data de entrada (dia/mes): ");
         scanf("%d/%d", dia, mes);
     }
 }
 
-/*funcao que ler nÃºmero de quartos digitado pelo usuÃ¡rio*/
+/*funcao que ler número de quartos digitado pelo usuário*/
 int readNumQuarto (short quartos [42][2]) {
     int num_quarto;
-    printf("Digite o nÃºmero do quarto: ");
+    printf("Digite o número do quarto: ");
     scanf("%d", &num_quarto);
     while (!validaNumQuarto(num_quarto, quartos)) {
-        printf("\n###NÃºmero de quarto invÃ¡lido!###\n\n");
-        printf("Digite o nÃºmero do quarto: ");
+        printf("\n###Número de quarto inválido!###\n\n");
+        printf("Digite o número do quarto: ");
         scanf("%d", &num_quarto);
     }
     return num_quarto;
 }
 
-/*funcao que ler nÃºmero de camas digitado pelo usuÃ¡rio*/
+/*funcao que ler número de camas digitado pelo usuário*/
 int readNumCamas (void){
     int camas;
-    printf("NÃºmero de camas desejado? ");
+    printf("Número de camas desejado? ");
     scanf("%d", &camas);
     while ( camas < 1 || camas > 3 ){
-        printf("\n###NÃºmero de camas invÃ¡lido!###\n\n");
-        printf("NÃºmero de camas desejado? ");
+        printf("\n###Número de camas inválido!###\n\n");
+        printf("Número de camas desejado? ");
         scanf("%d", &camas);
     }
     return camas;
 }
 
-/*FunÃ§Ã£o que valida nÃºmero do quarto*/
+/*Função que valida número do quarto*/
 int validaNumQuarto (int num, short quartos[42][2]) {
     int i;
 
@@ -96,7 +83,7 @@ int validaNumQuarto (int num, short quartos[42][2]) {
     return 0;
 }
 
-/*FunÃ§Ã£o para validaÃ§Ã£o de data*/
+/*Função para validação de data*/
 int validaData(int dia, int mes, int ano){
     if ((dia >= 1 && dia <= 31) && (mes >= 1 && mes <= 12) && (ano >= 1900 && ano <= 2100)) //verifica se os numeros sao validos
         {
@@ -127,77 +114,8 @@ int validaData(int dia, int mes, int ano){
            }
 }
 
-void cpfDoubleToInt (double *pcpfs, int *pcpf, int *pdig) {
-    double cpfs = *pcpfs;
-    int cpf = *pcpf;
-    int dig = *pdig;
-    cpf = (int)(cpfs/100);//  printf("---TesteFuncao---\n");  printf("CPFS = %f\n", cpfs); printf("CPF = %d\n", cpf); printf("CPFS - CPF = %d\n", (int)(cpfs - (double)cpf*100) );
-    dig = (int)(cpfs - (double)cpf*100);// printf("Dig = %d\n", dig );
-    *pcpf = cpf;
-    *pdig = dig;
-}
 
-void cpfIntToDouble (double *cpfs, int *cpf, int *dig){
-    //cpfs[1] = (double)cpf*100 + dig;
-    *cpfs = (double)*cpf*100 + *dig;
-}
 
-/*Funcao que trabalha junto com a valida_CPF*/
-int soma_cpf (int cpf, int dig) {
-    int c, peso, soma, i;
-    i = 1;
-    peso = 2;
-    soma = 0;
-    if (dig < 0) {
-        while ( i <= 9) {
-            c = cpf % 10;
-            soma = soma + c*peso;
-            cpf = (int)(cpf/10);
-            i++;
-            peso++;
-        }
-    }
-    else {
-        cpf = cpf*10 + dig;
-        while ( i <= 10) {
-            c = cpf % 10;
-            soma = soma + c*peso;
-            cpf = (int)(cpf/10);
-            i++;
-            peso++;
-        }
-    }
-    return soma;
-}
-
-/*Funcao para validar CPF*/
-int valida_cpf (double cpfs) {
-    //printf("\n---Funcao valida_cpf---");
-    int cpf, cpf_dig;
-    cpfDoubleToInt(&cpfs, &cpf, &cpf_dig);
-    int somatorio, dig1, dig2, r, dig;
-    //printf("\nCPF_dig: %d", cpf_dig);
-    //printf("\nCPF: %d", cpf);
-    somatorio = soma_cpf(cpf, -1); //printf("\nsomatorio: %d", somatorio);
-    dig1 = 11 - (somatorio % 11); //printf("\ndig1: %d", dig1);
-    if (dig1 > 9) {
-        dig1 = 0; //printf("\ndig1: %d", dig1);
-    }
-    somatorio = soma_cpf(cpf , dig1); //printf("\nsomatorio: %d", somatorio);
-    dig2 = 11 - (somatorio % 11); //printf("\ndig2: %d", dig2);
-    if (dig2 > 9) {
-        dig2 = 0; //printf("\ndig2: %d", dig2);
-    }
-    dig = (dig1*10) + dig2; //printf("\ndig: %d", dig);
-    if (cpf_dig == dig) {
-        r = 1;
-    }
-    else {
-        r = 0;
-    }
-    //printf("\ncpf_dig: %d, dig: %d", cpf_dig, dig);
-    return r;
-}
 
 /*juliana_to_gregoriana ()*/
 /*converte data juliana em gregoriana*/
@@ -235,30 +153,115 @@ int gregoriana_to_juliana (int dia, int mes, int ano) {
     return juliana ;
 }
 
-int inicializa_dados  (short reserva[42][181],short quartos [42][2],float preco_diaria[3])
+void inicializa_dados (short reserva[42][181],short quartos [42][2],float preco_diaria[3], int MAX, double cpfs[MAX])
 {
-    int a,q;
+    int a,q,d;
+    int aux,ex;
+    double newcpf;
+
+    //definindo o valor de quarto para quantidade de camas
     for(a=0;a<3;a++)
     {
-        printf("Defina os valores do quarto para %d cama(s): ",a+1);
+        printf("Defina o valor do quarto para %d cama(s): ",a+1);
         scanf("%f", &preco_diaria[a]);
     }
+
+    //definindo numero de camas pra cada quarto
+    quartos[0][1]   =1;//[numero do quarto][numero de camas]
+    quartos[1][1]   =2;
+    quartos[2][1]   =3;
+    quartos[3][1]   =3;
+    quartos[4][1]   =1;
+    quartos[5][1]   =2;
+    quartos[6][1]   =3;
+    quartos[7][1]   =2;
+    quartos[8][1]   =3;
+    quartos[9][1]   =1;
+    quartos[10][1]  =1;
+    quartos[11][1]  =2;
+    quartos[12][1]  =3;
+    quartos[13][1]  =1;
+    quartos[14][1]  =3;
+    quartos[15][1]  =1;
+    quartos[16][1]  =2;
+    quartos[17][1]  =2;
+    quartos[18][1]  =1;
+    quartos[19][1]  =2;
+    quartos[20][1]  =3;
+    quartos[21][1]  =2;
+    quartos[22][1]  =3;
+    quartos[23][1]  =1;
+    quartos[24][1]  =1;
+    quartos[25][1]  =2;
+    quartos[26][1]  =3;
+    quartos[27][1]  =1;
+    quartos[28][1]  =3;
+    quartos[29][1]  =1;
+    quartos[30][1]  =2;
+    quartos[31][1]  =2;
+    quartos[32][1]  =1;
+    quartos[33][1]  =2;
+    quartos[34][1]  =3;
+    quartos[35][1]  =1;
+    quartos[36][1]  =2;
+    quartos[37][1]  =3;
+    quartos[38][1]  =3;
+    quartos[39][1]  =1;
+    quartos[40][1]  =2;
+    quartos[41][1]  =3;
+
+    //definindo o numero dos quartos
+    int apt=8;
+    for(a=0;a<42;a++)
+    {
+        if (a%7==0)
+        {
+            apt=(apt+93);
+        }
+        quartos[a][0]=a+apt;
+        printf("%d  ", quartos[a][0]);
+    }
+
+    //Gerando 1000 reservas
+    a=0;
+    while (a<1000)
+    {
+        for(q=0;q<42;q++)
+        {
+            for(d=0;d<181;d++)
+            {
+                if (reserva[q][d]==-1)
+                {
+                    aux=rand()%3;
+                    if(aux==0)
+                    {
+                        aux=rand()%8;
+                        if(aux<3){aux=3;}
+                        newcpf=cpf_generator();
+                        printf("%hi", newcpf);
+                        for(d=d;d<d+aux;d++)
+                        {
+                            reserva[q][d]=newcpf;
+                        }
+                        a=a++;
+                    }
+
+                }
+            }
+        }
+    }
+
 
 }
 
 
-int incluir_reserva (short reserva[42][181], short quartos [42][2], float preco_diaria[3],int num_quarto,double bcpf,int dia_in,int mes_in,int dia_out,int mes_out)
+/*int incluir_reserva (short reserva[42][181], short quartos [42][2], float preco_diaria[3],int num_quarto,double bcpf,int dia_in,int mes_in,int dia_out,int mes_out)
+{
+
+}*/
 
 
-
-
-
-
-
- 
-
-
-    int ImprimirReserva (int numquarto, short reserva[42][181], short quartos[42][2], float precodiaria[3], double *cpfs)
+/*int ImprimirReserva (int numquarto, short reserva[42][181], short quartos[42][2], float precodiaria[3], double *cpfs)
     {
         int numcamas;
         int numandar = (int)(numquarto/100);
@@ -271,8 +274,8 @@ int incluir_reserva (short reserva[42][181], short quartos [42][2], float preco_
                 break;
             }
         }
-        printf("%dÂ° andar, quarto %d (%d camas)", numandar, numquarto, numcamas);
-    }
+        printf("%d° andar, quarto %d (%d camas)", numandar, numquarto, numcamas);
+    }*/
 
 
 

@@ -16,7 +16,7 @@ int* cpf_generator();
 
 // Função main
 // Main Function
-int main(int argc, char** argv)
+int gera_cpf(int argc, char** argv)
 {
  int *cpf, i;
 

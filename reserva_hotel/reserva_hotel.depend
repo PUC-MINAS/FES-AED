@@ -6,11 +6,13 @@
 	<conio.h>
 	"funcoes.h"
 
-1510415838 source:c:\users\jonathas\documents\escola\puc\1º periodo\aed+fes\fes-aed\reserva_hotel\main.c
+1511054609 source:c:\users\jonathas\documents\escola\puc\1º periodo\aed+fes\fes-aed\reserva_hotel\main.c
 	<stdio.h>
 	<stdlib.h>
 	<locale.h>
 	<conio.h>
+	"funcoes.h"
+	"cpfb.h"
 
 1510577616 source:c:\users\1096109\downloads\fes-aed-master\fes-aed-master\reserva_hotel\main.c
 	<stdio.h>
@@ -22,4 +24,8 @@
 1510575502 c:\users\1096109\downloads\fes-aed-master\fes-aed-master\reserva_hotel\funcoes.h
 
 1510894504 c:\users\ravi\documents\github\fes-aed\reserva_hotel\funcoes.h
+
+1511058052 c:\users\jonathas\documents\escola\puc\1º periodo\aed+fes\fes-aed\reserva_hotel\funcoes.h
+
+1511057356 c:\users\jonathas\documents\escola\puc\1º periodo\aed+fes\fes-aed\reserva_hotel\cpfb.h
 
