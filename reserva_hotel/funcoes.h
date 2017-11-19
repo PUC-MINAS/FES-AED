@@ -153,17 +153,26 @@ int gregoriana_to_juliana (int dia, int mes, int ano) {
     return juliana ;
 }
 
+//reseta o programa
 void inicializa_dados (short reserva[42][181],short quartos [42][2],float preco_diaria[3], int MAX, double cpfs[MAX])
 {
     int a,q,d;
     int aux,ex;
     double newcpf;
 
-    //definindo o valor de quarto para quantidade de camas
+    //definindo o valor de quarto para quantidade de camas-+
     for(a=0;a<3;a++)
     {
         printf("Defina o valor do quarto para %d cama(s): ",a+1);
         scanf("%f", &preco_diaria[a]);
+    }
+    //reseta todas as reservas
+    for(a=0;a<42;a++)
+    {
+        for(q=0;q<181;q++)
+        {
+            quartos[a][q]=-1;
+        }
     }
 
     //definindo numero de camas pra cada quarto
@@ -235,9 +244,9 @@ void inicializa_dados (short reserva[42][181],short quartos [42][2],float preco_
                     aux=rand()%3;
                     if(aux==0)
                     {
+                        newcpf=cpf_generator();
                         aux=rand()%8;
                         if(aux<3){aux=3;}
-                        newcpf=cpf_generator();
                         printf("%hi", newcpf);
                         for(d=d;d<d+aux;d++)
                         {

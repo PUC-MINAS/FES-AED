@@ -2,11 +2,13 @@
 #define CPFB_H_INCLUDED
 
 /*Funcao que lê um cpf e valida*/
-double readCpf () {
+double readCpf ()
+{
     double cpf;
     printf("Digite o seu cpf: ");
     scanf("%lf", &cpf);
-    while (!valida_cpf(cpf)) {
+    while (!valida_cpf(cpf))
+    {
         printf("\n###CPF inválido!###\n\n");
         printf("Digite o seu cpf: ");
         scanf("%lf", &cpf);
@@ -18,7 +20,8 @@ double readCpf () {
 
 
 
-void cpfDoubleToInt (double *pcpfs, int *pcpf, int *pdig) {
+void cpfDoubleToInt (double *pcpfs, int *pcpf, int *pdig)
+{
     double cpfs = *pcpfs;
     int cpf = *pcpf;
     int dig = *pdig;
@@ -28,7 +31,8 @@ void cpfDoubleToInt (double *pcpfs, int *pcpf, int *pdig) {
     *pdig = dig;
 }
 
-void cpfIntToDouble (double *cpfs, int *cpf, int *dig){
+void cpfIntToDouble (double *cpfs, int *cpf, int *dig)
+{
     //cpfs[1] = (double)cpf*100 + dig;
     *cpfs = (double)*cpf*100 + *dig;
 }
@@ -38,13 +42,16 @@ void cpfIntToDouble (double *cpfs, int *cpf, int *dig){
 
 
 /*Funcao que trabalha junto com a valida_CPF*/
-int soma_cpf (int cpf, int dig) {
+int soma_cpf (int cpf, int dig)
+{
     int c, peso, soma, i;
     i = 1;
     peso = 2;
     soma = 0;
-    if (dig < 0) {
-        while ( i <= 9) {
+    if (dig < 0)
+    {
+        while ( i <= 9)
+        {
             c = cpf % 10;
             soma = soma + c*peso;
             cpf = (int)(cpf/10);
@@ -52,9 +59,11 @@ int soma_cpf (int cpf, int dig) {
             peso++;
         }
     }
-    else {
+    else
+    {
         cpf = cpf*10 + dig;
-        while ( i <= 10) {
+        while ( i <= 10)
+        {
             c = cpf % 10;
             soma = soma + c*peso;
             cpf = (int)(cpf/10);
@@ -72,7 +81,8 @@ int soma_cpf (int cpf, int dig) {
 
 
 /*Funcao para validar CPF*/
-int valida_cpf (double cpfs) {
+int valida_cpf (double cpfs)
+{
     //printf("\n---Funcao valida_cpf---");
     int cpf, cpf_dig;
     cpfDoubleToInt(&cpfs, &cpf, &cpf_dig);
@@ -81,19 +91,23 @@ int valida_cpf (double cpfs) {
     //printf("\nCPF: %d", cpf);
     somatorio = soma_cpf(cpf, -1); //printf("\nsomatorio: %d", somatorio);
     dig1 = 11 - (somatorio % 11); //printf("\ndig1: %d", dig1);
-    if (dig1 > 9) {
+    if (dig1 > 9)
+    {
         dig1 = 0; //printf("\ndig1: %d", dig1);
     }
-    somatorio = soma_cpf(cpf , dig1); //printf("\nsomatorio: %d", somatorio);
+    somatorio = soma_cpf(cpf, dig1);  //printf("\nsomatorio: %d", somatorio);
     dig2 = 11 - (somatorio % 11); //printf("\ndig2: %d", dig2);
-    if (dig2 > 9) {
+    if (dig2 > 9)
+    {
         dig2 = 0; //printf("\ndig2: %d", dig2);
     }
     dig = (dig1*10) + dig2; //printf("\ndig: %d", dig);
-    if (cpf_dig == dig) {
+    if (cpf_dig == dig)
+    {
         r = 1;
     }
-    else {
+    else
+    {
         r = 0;
     }
     //printf("\ncpf_dig: %d, dig: %d", cpf_dig, dig);
@@ -104,32 +118,37 @@ int valida_cpf (double cpfs) {
 
 
 // Função Geradora de CPF
-int cpf_generator() {
+int cpf_generator()
+{
     int *cpf, pesos[11], vetSoma[11], soma, resto, digito,  i;
 
     // Aloca memória para o cpf
     cpf = (int *) malloc(sizeof(int) * 11);
 
     // Gera 9 números aleatórios
-    for(i = 0; i < 9; i++) {
+    for(i = 0; i < 9; i++)
+    {
         cpf[i] = rand() % 10;
     }
 
     // Cálculo do primeiro dígito verificador
 
     // Gera os 9 pesos
-    for(i = 0; i < 9; i++) {
+    for(i = 0; i < 9; i++)
+    {
         pesos[i] = 10 - i;
     }
 
     // Multiplica os valores de cada coluna
-    for(i = 0; i < 9; i++) {
+    for(i = 0; i < 9; i++)
+    {
         vetSoma[i] = cpf[i] * pesos[i];
     }
 
     // Calcula o somatório dos resultados
     soma = 0;
-    for(i = 0; i < 9; i++) {
+    for(i = 0; i < 9; i++)
+    {
         soma += vetSoma[i];
     }
 
@@ -137,9 +156,12 @@ int cpf_generator() {
     resto = soma % 11;
 
     // Verifica o resto da divisão
-    if(resto < 2) {
+    if(resto < 2)
+    {
         digito = 0;
-    } else {
+    }
+    else
+    {
         digito = 11 - resto;
     }
 
@@ -149,18 +171,21 @@ int cpf_generator() {
     // Cálculo do segundo dígito verificador
 
     // Gera os 10 pesos
-    for(i = 0; i < 10; i++) {
+    for(i = 0; i < 10; i++)
+    {
         pesos[i] = 11 - i;
     }
 
     // Multiplica os valores de cada coluna
-    for(i = 0; i < 10; i++) {
+    for(i = 0; i < 10; i++)
+    {
         vetSoma[i] = cpf[i] * pesos[i];
     }
 
     // Calcula o somatório dos resultados
     soma = 0;
-    for(i = 0; i < 10; i++) {
+    for(i = 0; i < 10; i++)
+    {
         soma += vetSoma[i];
     }
 
@@ -168,9 +193,12 @@ int cpf_generator() {
     resto = soma % 11;
 
     // Verifica o resto da divisão
-    if(resto < 2) {
+    if(resto < 2)
+    {
         digito = 0;
-    } else {
+    }
+    else
+    {
         digito = 11 - resto;
     }
 
@@ -180,5 +208,34 @@ int cpf_generator() {
     return cpf;
 }
 
+
+
+// Função main
+// Main geradora de cpf
+int gera_cpf(int argc, char** argv)
+{
+    int *cpf, i, newcpf;
+
+// Inicia o gerador de números aleatórios
+    srand(time(NULL));
+
+// Gera um cpf aleatório
+    cpf = cpf_generator();
+
+
+// Imprime o cpf gerado na tela
+    for(i = 0; i < 11; i++)
+    {
+
+        printf("%d", cpf[i]);
+    }
+    printf("n");
+
+    system("pause");
+
+// Libera a memória usada para o cpf
+    free(cpf);
+    return 0;
+}
 
 #endif // CPFB_H_INCLUDED
