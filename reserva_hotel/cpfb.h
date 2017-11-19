@@ -214,28 +214,25 @@ int cpf_generator()
 // Main geradora de cpf
 int gera_cpf(int argc, char** argv)
 {
-    int *cpf, i, newcpf;
-
+    int *cpf, i, aux;
+    double newcpf;
 // Inicia o gerador de números aleatórios
     srand(time(NULL));
 
 // Gera um cpf aleatório
     cpf = cpf_generator();
-
+    newcpf=cpf[0];
+    aux=10;
 
 // Imprime o cpf gerado na tela
     for(i = 0; i < 11; i++)
     {
-
-        printf("%d", cpf[i]);
+        newcpf=(newcpf*aux)+cpf[i];
     }
-    printf("n");
-
-    system("pause");
 
 // Libera a memória usada para o cpf
     free(cpf);
-    return 0;
+    return newcpf;
 }
 
 #endif // CPFB_H_INCLUDED

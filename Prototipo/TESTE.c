@@ -111,19 +111,17 @@ int* cpf_generator()
 // Main geradora de cpf
 int main(int argc, char** argv)
 {
-    int *cpf, i, newcpf;
+    int *cpf, i;
 
 // Inicia o gerador de números aleatórios
     srand(time(NULL));
 
 // Gera um cpf aleatório
     cpf = cpf_generator();
-    newcpf=cpf;
 
 // Imprime o cpf gerado na tela
     for(i = 0; i < 11; i++)
     {
-
         printf("%d", cpf[i]);
     }
     printf("n");

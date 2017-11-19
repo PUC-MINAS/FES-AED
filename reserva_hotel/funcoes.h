@@ -2,14 +2,16 @@
 #define FUNCOES_H_INCLUDED
 
 /*estrutura de data - usado para conversão de data juliana para gregoriana*/
-struct date {
-   int dia;
-   int mes;
+struct date
+{
+    int dia;
+    int mes;
 };
 typedef struct date data;
 
 /*Função que converte index para data*/
-void indexToData (int index, int *dia, int *mes) {
+void indexToData (int index, int *dia, int *mes)
+{
     data juliana_to_gregoriana (int juliana);
     int datainicial = gregoriana_to_juliana(1,1,2018);
     int juli = datainicial + index;
@@ -20,13 +22,15 @@ void indexToData (int index, int *dia, int *mes) {
 }
 
 /*função que converte data para index*/
-int dataToIndex (int dia, int mes) {
+int dataToIndex (int dia, int mes)
+{
     int juli = gregoriana_to_juliana(dia, mes, 2018);
     return juli - (gregoriana_to_juliana(1,1,2018));
 }
 
 /*função que retorna periodo de dias*/
-int tempo_reserva (int dia_in,int mes_in,int dia_out,int mes_out) {
+int tempo_reserva (int dia_in,int mes_in,int dia_out,int mes_out)
+{
     int juli = gregoriana_to_juliana(dia_in, mes_in, 2018);
     return juli - (gregoriana_to_juliana(dia_out,mes_out,2018));
 }
@@ -36,9 +40,11 @@ int tempo_reserva (int dia_in,int mes_in,int dia_out,int mes_out) {
 
 
 /*Função que lê dia e mês digitado pelo usuário e faz validação*/
-void readData (int *dia, int *mes) {
+void readData (int *dia, int *mes)
+{
     scanf("%d/%d", dia, mes);
-    while (!validaData(*dia, *mes, 2018) || *mes >6) {
+    while (!validaData(*dia, *mes, 2018) || *mes >6)
+    {
         printf("\n###Data inválida!###\n\n");
         printf("Data de entrada (dia/mes): ");
         scanf("%d/%d", dia, mes);
@@ -46,11 +52,13 @@ void readData (int *dia, int *mes) {
 }
 
 /*funcao que ler número de quartos digitado pelo usuário*/
-int readNumQuarto (short quartos [42][2]) {
+int readNumQuarto (short quartos [42][2])
+{
     int num_quarto;
     printf("Digite o número do quarto: ");
     scanf("%d", &num_quarto);
-    while (!validaNumQuarto(num_quarto, quartos)) {
+    while (!validaNumQuarto(num_quarto, quartos))
+    {
         printf("\n###Número de quarto inválido!###\n\n");
         printf("Digite o número do quarto: ");
         scanf("%d", &num_quarto);
@@ -59,11 +67,13 @@ int readNumQuarto (short quartos [42][2]) {
 }
 
 /*funcao que ler número de camas digitado pelo usuário*/
-int readNumCamas (void){
+int readNumCamas (void)
+{
     int camas;
     printf("Número de camas desejado? ");
     scanf("%d", &camas);
-    while ( camas < 1 || camas > 3 ){
+    while ( camas < 1 || camas > 3 )
+    {
         printf("\n###Número de camas inválido!###\n\n");
         printf("Número de camas desejado? ");
         scanf("%d", &camas);
@@ -72,11 +82,14 @@ int readNumCamas (void){
 }
 
 /*Função que valida número do quarto*/
-int validaNumQuarto (int num, short quartos[42][2]) {
+int validaNumQuarto (int num, short quartos[42][2])
+{
     int i;
 
-    for (i = 0; i < 42; i++) {
-        if (num == quartos[i][0]) {
+    for (i = 0; i < 42; i++)
+    {
+        if (num == quartos[i][0])
+        {
             return 1;
         }
     }
@@ -84,34 +97,35 @@ int validaNumQuarto (int num, short quartos[42][2]) {
 }
 
 /*Função para validação de data*/
-int validaData(int dia, int mes, int ano){
+int validaData(int dia, int mes, int ano)
+{
     if ((dia >= 1 && dia <= 31) && (mes >= 1 && mes <= 12) && (ano >= 1900 && ano <= 2100)) //verifica se os numeros sao validos
+    {
+        if ((dia == 29 && mes == 2) && ((ano % 4) == 0)) //verifica se o ano e bissexto
         {
-            if ((dia == 29 && mes == 2) && ((ano % 4) == 0)) //verifica se o ano e bissexto
-            {
-                return 1;
-            }
-            if (dia <= 28 && mes == 2) //verifica o mes de feveireiro
-            {
-                return 1;
-            }
-            if ((dia <= 30) && (mes == 4 || mes == 6 || mes == 9 || mes == 11)) //verifica os meses de 30 dias
-            {
-                return 1;
-            }
-            if ((dia <=31) && (mes == 1 || mes == 3 || mes == 5 || mes == 7 || mes ==8 || mes == 10 || mes == 12)) //verifica os meses de 31 dias
-            {
-                return 1;
-            }
-            else
-            {
-                return 0;
-            }
-      }
-       else
-           {
-                return 0;
-           }
+            return 1;
+        }
+        if (dia <= 28 && mes == 2) //verifica o mes de feveireiro
+        {
+            return 1;
+        }
+        if ((dia <= 30) && (mes == 4 || mes == 6 || mes == 9 || mes == 11)) //verifica os meses de 30 dias
+        {
+            return 1;
+        }
+        if ((dia <=31) && (mes == 1 || mes == 3 || mes == 5 || mes == 7 || mes ==8 || mes == 10 || mes == 12)) //verifica os meses de 31 dias
+        {
+            return 1;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+    else
+    {
+        return 0;
+    }
 }
 
 
@@ -119,36 +133,38 @@ int validaData(int dia, int mes, int ano){
 
 /*juliana_to_gregoriana ()*/
 /*converte data juliana em gregoriana*/
-data juliana_to_gregoriana (int juliana) {
-	int b, n, k, j, dia, mes, ano;
-	long int data1;
-	data dt;
-	b= juliana+68569 ;
-	n= ( 4*b )/146097;
-	b = b-((146097 * n + 3)/4) ;
-	k = 4000 * (b + 1)/1461001;
-	b = b - (1461 * k)/4 + 31;
-	j = ( 80 * b)/2447;
-	dia = b - (2447 * j)/80;
-	b = (j/11);
-	mes = j + 2 - (12*b);
-	ano = 100 * (n-49) + k + b;
-	//printf ("\nTeste resultado d = %d, m = %d, a = %d\n", dia, mes, ano);
-	data1 = (ano * 10000) + (mes * 100) + dia;
-	dt.dia = (int)data1%100;
-	data1 = (int)data1/100;
-	dt.mes = (int)data1%100;
-	return dt;
+data juliana_to_gregoriana (int juliana)
+{
+    int b, n, k, j, dia, mes, ano;
+    long int data1;
+    data dt;
+    b= juliana+68569 ;
+    n= ( 4*b )/146097;
+    b = b-((146097 * n + 3)/4) ;
+    k = 4000 * (b + 1)/1461001;
+    b = b - (1461 * k)/4 + 31;
+    j = ( 80 * b)/2447;
+    dia = b - (2447 * j)/80;
+    b = (j/11);
+    mes = j + 2 - (12*b);
+    ano = 100 * (n-49) + k + b;
+    //printf ("\nTeste resultado d = %d, m = %d, a = %d\n", dia, mes, ano);
+    data1 = (ano * 10000) + (mes * 100) + dia;
+    dt.dia = (int)data1%100;
+    data1 = (int)data1/100;
+    dt.mes = (int)data1%100;
+    return dt;
 }
 
 /*gregoriana_to-juliana ()*/
 /*converte data gregoriana para juliana*/
-int gregoriana_to_juliana (int dia, int mes, int ano) {
-	int juliana;
-	juliana = (1461*(ano + 4800 + (mes -14)/12))/4 +
-	          (367*(mes - 2 - 12 *((mes -14)/12)))/12 -
-	          ( 3 * ((ano+ 4900 + (mes -14)/12)/100))/4 +
-	          dia - 32075 ;
+int gregoriana_to_juliana (int dia, int mes, int ano)
+{
+    int juliana;
+    juliana = (1461*(ano + 4800 + (mes -14)/12))/4 +
+              (367*(mes - 2 - 12 *((mes -14)/12)))/12 -
+              ( 3 * ((ano+ 4900 + (mes -14)/12)/100))/4 +
+              dia - 32075 ;
 
     return juliana ;
 }
@@ -161,15 +177,15 @@ void inicializa_dados (short reserva[42][181],short quartos [42][2],float preco_
     double newcpf;
 
     //definindo o valor de quarto para quantidade de camas-+
-    for(a=0;a<3;a++)
+    for(a=0; a<3; a++)
     {
         printf("Defina o valor do quarto para %d cama(s): ",a+1);
         scanf("%f", &preco_diaria[a]);
     }
     //reseta todas as reservas
-    for(a=0;a<42;a++)
+    for(a=0; a<42; a++)
     {
-        for(q=0;q<181;q++)
+        for(q=0; q<181; q++)
         {
             quartos[a][q]=-1;
         }
@@ -221,23 +237,22 @@ void inicializa_dados (short reserva[42][181],short quartos [42][2],float preco_
 
     //definindo o numero dos quartos
     int apt=8;
-    for(a=0;a<42;a++)
+    for(a=0; a<42; a++)
     {
         if (a%7==0)
         {
             apt=(apt+93);
         }
         quartos[a][0]=a+apt;
-        printf("%d  ", quartos[a][0]);
     }
 
     //Gerando 1000 reservas
     a=0;
     while (a<1000)
     {
-        for(q=0;q<42;q++)
+        for(q=0; q<42; q++)
         {
-            for(d=0;d<181;d++)
+            for(d=0; d<181; d++)
             {
                 if (reserva[q][d]==-1)
                 {
@@ -245,10 +260,10 @@ void inicializa_dados (short reserva[42][181],short quartos [42][2],float preco_
                     if(aux==0)
                     {
                         newcpf=cpf_generator();
+
                         aux=rand()%8;
                         if(aux<3){aux=3;}
-                        printf("%hi", newcpf);
-                        for(d=d;d<d+aux;d++)
+                        for(d=d; d<d+aux; d++)
                         {
                             reserva[q][d]=newcpf;
                         }
@@ -259,18 +274,16 @@ void inicializa_dados (short reserva[42][181],short quartos [42][2],float preco_
             }
         }
     }
+}
 
+
+int incluir_reserva (short reserva[42][181], short quartos [42][2], float preco_diaria[3],int num_quarto,double bcpf,int dia_in,int mes_in,int dia_out,int mes_out)
+{
 
 }
 
 
-/*int incluir_reserva (short reserva[42][181], short quartos [42][2], float preco_diaria[3],int num_quarto,double bcpf,int dia_in,int mes_in,int dia_out,int mes_out)
-{
-
-}*/
-
-
-/*int ImprimirReserva (int numquarto, short reserva[42][181], short quartos[42][2], float precodiaria[3], double *cpfs)
+int ImprimirReserva (int numquarto, short reserva[42][181], short quartos[42][2], float precodiaria[3], double *cpfs)
     {
         int numcamas;
         int numandar = (int)(numquarto/100);
@@ -284,7 +297,7 @@ void inicializa_dados (short reserva[42][181],short quartos [42][2],float preco_
             }
         }
         printf("%d° andar, quarto %d (%d camas)", numandar, numquarto, numcamas);
-    }*/
+    }
 
 
 
