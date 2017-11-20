@@ -181,7 +181,7 @@ int main()
                 readData(&dia_in, &mes_in);
 
                 printf("Data do check out (dia/mes): ");
-                scanf("%d", &dia_out, &mes_out);
+                readData(&dia_out, &mes_out);
 
                 bcpf = readCpf();
 

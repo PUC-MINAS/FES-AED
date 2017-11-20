@@ -598,12 +598,6 @@ int realizar_reserva(short reserva[41][182],short quartos[41][2], double bcpf,do
 }
 
 
-}
-
-
-
-
-
 
 
     int ImprimirReserva (int numquarto, short reserva[42][181], short quartos[42][2], float precodiaria[3], double *cpfs )
@@ -626,27 +620,108 @@ int realizar_reserva(short reserva[41][182],short quartos[41][2], double bcpf,do
 
 
 
+//funcao excluir reserva;
+
+void excluir_reserva(short reserva[42][181], short quartos[42][2],int num, int MAX, double *cpfs,int dia_in, int mes_in, int dia_out, int mes_out,int nvagas,int dia,int mes,int ano,int num_quarto)
+{
+    int entrada,saida,cpf,cont,valida_exclusao=0,q,d,aux;
+
+  bcpf = readCpf();
+
+   //0 - indica que o quarto não existe;
+
+    num_quarto = readNumQuarto(quartos);
 
 
+//le data;
+    printf("Data do check in (dia/mes): ");
+    readData(&dia_in, &mes_in);
+
+    printf("Data do check out (dia/mes): ");
+    readData(&dia_out, &mes_out);
 
 
+    entrada=gregoriana_to_juliana(dia_in,mes_in,2018);
+
+    saida=gregoriana_to_juliana(dia_out,mes_out,2018);
+
+    //1 - indica periodo invalido;
+    if(saida<entrada||entrada=saida){
+    return 1;
+    }
+   =========
+    else{
+        valida_exclusao++;
+    }
+
+==============
+    //2 - Indica reserva inexistente no periodo;
+    aux=0;
+    for(d=entrada; d<saida+1; d++)
+    {
+        if (quartos[q][0]==num_quarto)
+        {
+            if (reserva[q][d]==bcpf)
+            {
+
+                valida_exclusao++;
+                aux=1;
+            }
+        }
+    }
+    if(aux==0)
+    {
+        return 2;
+    }
 
 
+//4 – Indica que o CPF não corresponde com a reserva;
+    aux=0;
+    for (q=0; q<42; q++)
+    {
+        for (d=0; d<181;d++)
+        {
+            if (cpf==reserva[q][d])
+            {
+                valida_exclusao++;
+                aux=1;
+            }
+        }
+    }
+    if (aux==0)
+    {
+        printf("\n4 - CPF não corresponde com a reserva!");
+        cont=0;
+    }
+
+//excluir reserva;
+    if(valida_exclusao==4)
+    {
+        cont=1;
+        reserva[q][d]=-1;
+    }
 
 
+    if(cont==1)
+    {
+//3 - indica exclusão realizada com sucesso;
+        printf("\n3 - Exclusão realizada com sucesso!");
+
+//atualizar o número de vagas no hotel;
+
+        for (q=0; q<42; q++)
+        {
+            for(d=0;d<181;d++)
+            {
+                if(reserva[q][d]==-1)
+                {
+                    nvagas=nvagas+1;
+                    printf("\nNumero de vagas é: %d",nvagas);
+                }
 
 
+            }
+        }
+    }
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-#endif // FUNCOES_H_INCLUDED
