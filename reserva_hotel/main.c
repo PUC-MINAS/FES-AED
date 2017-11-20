@@ -22,9 +22,24 @@ int main()
     double cpfs[MAX];
     int juliana;
     data dt;
-    int cpf, dig;
+    int cpf, dig, q, d;
     double bcpf;
-    float preco;
+
+    for (q=0; q<42; q++) {
+        for (d=0; d<181; d++) {
+            reserva[q][d] = -1;
+        }
+    }
+
+    quartos[0][0] = 100;
+    quartos[0][1] = 2;
+    reserva[0][20] = 0;
+    reserva[0][21] = 0;
+    reserva[0][22] = 0;
+    cpfs[0] = 10486042685;
+
+    printf("Reserva[0][20] = %d", reserva[0][20]);
+    system("pause");
 
 
 
@@ -33,6 +48,7 @@ int main()
     indexToData(index, &dia, &mes);
     printf("index = %d, dia= %d, mes= %d", index, dia, mes);
     system("pause");*/
+
 
     //inicializa_dados(reserva, quartos, preco_diaria, MAX, cpfs);
 
@@ -51,11 +67,11 @@ int main()
     printf("Juli1 = %d\n", conv_juli1);
     printf("Juli2 = %d\n", conv_juli2);
     printf("Juli1 - Juli2 = %d\n", conv_juli2 - conv_juli1);
-    printf("Posicão= %d\n", dataToIndex(30,6));
+    printf("PosicÃ£o= %d\n", dataToIndex(30,6));
     system("pause");*/
 
 
-    /*Teste de conversão de CPF entre double e int
+    /*Teste de conversÃ£o de CPF entre double e int
     printf("Tamanho vetor cpfs: %d\n", sizeof(cpfs));
     printf("Tamanho matriz reserva: %d\n", sizeof(reserva));
     printf("Tamanho matriz quartos: %d\n", sizeof(quartos));
@@ -94,7 +110,7 @@ int main()
     while (op != ESC) {
         system("cls"); //limpa tela
         printf("---Reserva de Hotel---\n");
-        printf("\nSelecione uma das opções abaixo.\n");
+        printf("\nSelecione uma das opÃ§Ãµes abaixo.\n");
         printf("1 - Fazer reserva\n");
         printf("2 - Cancelar reserva\n");
         printf("3 - Consultar reservas\n");
@@ -114,16 +130,16 @@ int main()
                 printf("Data de entrada (dia/mes): ");
                 readData(&dia_in, &mes_in);
 
-                printf("Data de saída (dia/mes): ");
+                printf("Data de saÃ­da (dia/mes): ");
                 readData(&dia_out, &mes_out);
                 while (gregoriana_to_juliana(dia_out, mes_out, 2018) < gregoriana_to_juliana(dia_in, mes_in, 2018) )
                     {
-                        printf("###Data de saída não pode menor do que a data de entrada!###\n\n");
-                        printf("Data de saída (dia/mes): ");
+                        printf("###Data de saÃ­da nÃ£o pode menor do que a data de entrada!###\n\n");
+                        printf("Data de saÃ­da (dia/mes): ");
                         readData(&dia_out, &mes_out);
                     }
 
-                //check = print informacoes dos quartos disponíveis segundo o numero de camas solicitado. retornar true se tiver quartos que atendem a condição e false se não tiver
+                //check = print informacoes dos quartos disponÃ­veis segundo o numero de camas solicitado. retornar true se tiver quartos que atendem a condiÃ§Ã£o e false se nÃ£o tiver
 
                 if (check){
 
@@ -134,10 +150,10 @@ int main()
                     //msg = incluir_reserva (reserva, quartos, preco_diaria, num_quarto, bcpf);
                 }
                 else {
-                    printf("Não temos quartos disponíveis com %d cama(s) para este período\n", camas);
+                    printf("NÃ£o temos quartos disponÃ­veis com %d cama(s) para este perÃ­odo\n", camas);
                     if (camas < 3) {
-                        printf("Temos estes quartos disponíveis:\n");
-                        //check = print informações de quartos disponíveis. retornar true se tiver quartos que atendem a condição e false se não tiver
+                        printf("Temos estes quartos disponÃ­veis:\n");
+                        //check = print informaÃ§Ãµes de quartos disponÃ­veis. retornar true se tiver quartos que atendem a condiÃ§Ã£o e false se nÃ£o tiver
                         check = 1;
                         if (check) {
                             printf("Deseja continuar com a reserva?(s/n)");
@@ -159,22 +175,22 @@ int main()
 
                 switch (msg) {
                     case 0:
-                        printf("Quarto não existe.\n");
+                        printf("Quarto nÃ£o existe.\n");
                         break;
                     case 1:
-                        printf("Período inválido.\n");
+                        printf("PerÃ­odo invÃ¡lido.\n");
                         break;
                     case 2:
-                        printf("Quarto não disponível no período selecionado.\n");
+                        printf("Quarto nÃ£o disponÃ­vel no perÃ­odo selecionado.\n");
                         break;
                     case 3:
-                        printf("Cliente já possui reserva no mesmo período.\n");
+                        printf("Cliente jÃ¡ possui reserva no mesmo perÃ­odo.\n");
                         break;
                     case 4:
                         printf("Reserva realizada com sucesso.\n");
                         break;
                     case -1:
-                        printf("\n\nOperação cancelada!");
+                        printf("\n\nOperaÃ§Ã£o cancelada!");
                 }
 
                 system("pause");
@@ -198,19 +214,19 @@ int main()
 
                 switch (msg) {
                     case 0:
-                        printf("Quarto não existe.\n");
+                        printf("Quarto nÃ£o existe.\n");
                         break;
                     case 1:
-                        printf("Período inválido.\n");
+                        printf("PerÃ­odo invÃ¡lido.\n");
                         break;
                     case 2:
-                        printf("Não existe reserva para este período.\n");
+                        printf("NÃ£o existe reserva para este perÃ­odo.\n");
                         break;
                     case 3:
                         printf("Reserva cancelada com sucesso.\n");
                         break;
                     case 4:
-                        printf("CPF não corresponde à reserva.\n");
+                        printf("CPF nÃ£o corresponde Ã  reserva.\n");
                         break;
                 }
 
@@ -221,7 +237,7 @@ int main()
                 system("cls");
                 printf("---Consultar Reservas---\n");
                 printf("1 - Consultar dados de um quarto\n");
-                printf("2 - Consultar todas as ocupações\n");
+                printf("2 - Consultar todas as ocupaÃ§Ãµes\n");
                 printf("3 - Consultar dados de todos os quartos\n");
                 printf("ESC para cancelar\n");
                 op = getch();
@@ -231,17 +247,16 @@ int main()
                         system("cls");
                         printf("---Consultar dados de um quarto---\n");
 
-                        //num_quarto = readNumQuarto(quartos);
 
-                        //ImprimirReserva(num_quarto, reserva, quartos, preco_diaria, cpfs);
+                        imprimir_reserva(reserva, quartos, preco_diaria, cpfs, op);
 
                         //msg = imprimir_reserva(reserva, quartos, preco_diaria, op, num_quarto );
 
                         break;
                     case 50:
                         system("cls");
-                        printf("---Consultar todas as ocupações---\n");
-                        //msg = imprimir_reserva(reserva, quartos, preco_diaria, op);
+                        printf("---Consultar todas as ocupaÃ§Ãµes---\n");
+                        imprimir_reserva(reserva, quartos, preco_diaria, cpfs, op);
                         break;
                     case 51:
                         system("cls");
@@ -256,7 +271,7 @@ int main()
                 }
 
                 if (msg==0){
-                   printf("Não existe quarto com esse número.\n");
+                   printf("NÃ£o existe quarto com esse nÃºmero.\n");
                 }
                 system("pause");
                 break;
