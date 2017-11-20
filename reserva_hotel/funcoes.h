@@ -246,7 +246,7 @@ void inicializa_dados (short reserva[42][181],short quartos [42][2],float preco_
         quartos[a][0]=a+apt;
     }
 
-    //Gerando 1000 reservas
+   //gerando  1000 reservas
     a=0;
     while (a<1000)
     {
@@ -275,15 +275,339 @@ void inicializa_dados (short reserva[42][181],short quartos [42][2],float preco_
         }
     }
 }
-
-
-int incluir_reserva (short reserva[42][181], short quartos [42][2], float preco_diaria[3],int num_quarto,double bcpf,int dia_in,int mes_in,int dia_out,int mes_out)
+int criar_id(double bcpf, double cpfs[5000])
 {
+    int i;
+    int id_cpf;
+
+    if(localizar_id(bcpf,cpfs[5000])==-1)
+    {
+        for(i=0; i<5000; i++)
+        {
+            if(cpfs[i]==-1)
+            {
+                cpfs[i]=bcpf;
+                id_cpf=i;
+                break;
+            }
+
+
+        }
+
+
+    }
+
+
+return id_cpf;
+}
+
+
+int localizar_id( double bcpf,double cpfs[5000])
+{
+    int i=0;
+    int id=-1;
+    for(i=0; i<5000;i++)
+    {
+        if(cpfs[i]==-1)
+        {
+            break;
+
+        }
+        if(bcpf=cpfs[i])
+        {
+            id=i;
+            break;
+        }
+
+    }
+    return id;
+
+}
+
+int localiza_quarto_vago(int quarto_aux[14],int camas,short reserva[42][181],short quartos [42][2],int vaga_quartos[42],int dia_in,int mes_in,int dia_out,int mes_out)
+{
+    int vaga, ini_vetor=dataToIndex(dia_in,mes_in);
+    int final_vetor=dataToIndex(dia_out,mes_out)+1;
+    int tam_vet=tempo_reserva(dia_in,mes_in,dia_out,mes_out);
+    int j,i,aux=0,i_vaga=0;
+    for(i=0; i<28; i++)
+    {
+        quarto_aux[i]=-1;
+    };
+
+
+    for(i=0; i<42; i++)
+    {
+
+        if(quartos[i][1]== camas)
+        {
+            quarto_aux[aux]=i;
+            aux++;
+
+        }
+
+    };
+
+
+    i_vaga=0;
+    for(aux=0; aux<24; aux++)
+    {
+        if(quarto_aux[aux]==-1)
+        {
+            break;
+        }
+
+        for(j=ini_vetor; j<final_vetor; j++)
+        {
+            if (reserva[quarto_aux[aux]][j]!=-1)
+            {
+                vaga=0;
+                continue;
+
+            }
+            else
+            {
+                if(j==final_vetor-1)
+                {
+                    vaga_quartos[i_vaga]=quarto_aux[aux];
+                    i_vaga++;
+                    vaga=1;
+                }
+
+
+            }
+        }
+    }
+
+    return vaga;
+
+ }
+
+ int localiza_quarto_reserva(int quarto_aux[28],int camas,short reserva[42][181],short quartos [42][2],int vaga_quartos[42],int dia_in,int mes_in,int dia_out,int mes_out){
+  int i,i_vaga,j,vaga,ini_vetor=dataToIndex(dia_in,mes_in);
+    int final_vetor=dataToIndex(dia_out,mes_out)+1;
+    int tam_vet=tempo_reserva(dia_in,mes_in,dia_out,mes_out);
+ int aux=0;
+    for(i=0; i<28; i++)
+    {
+   quarto_aux[i]=-1;
+    };
+
+ for(i=0; i<42; i++)
+    {
+
+        if(quartos[i][1]> camas)
+        {
+            quarto_aux[aux]=i;
+            aux++;
+
+        }
+
+    };
+
+
+    i_vaga=0;
+    for(aux=0; aux<24; aux++)
+    {
+        if(quarto_aux[aux]==-1)
+        {
+           break;
+        }
+
+
+        for(j=ini_vetor; j<final_vetor; j++)
+        {
+            if (reserva[quarto_aux[aux]][j]!=-1)
+            {
+                vaga=0;
+                continue;
+
+            }
+            else
+            {
+              if(j==final_vetor-1)
+                {
+                   vaga_quartos[i_vaga]=quarto_aux[aux];
+                   i_vaga++;
+                   vaga=1;
+                }
+
+            }
+
+        }
+    }
+
+ return vaga;
+
+ }
+
+
+
+
+int incluir_reserva (short reserva[42][181], short quartos [42][2], float preco_diaria[3],int camas,double bcpf,double cpfs[5000],int dia_in,int mes_in,int dia_out,int mes_out)
+{
+
+    int ini_vetor=dataToIndex(dia_in,mes_in);
+    int final_vetor=dataToIndex(dia_out,mes_out)+1;
+    int tam_vetor=tempo_reserva(dia_in,mes_in,dia_out,mes_out);
+    int i,id,i_vaga,aux,vaga,vaga_quartos[42],j;
+    int quarto_aux[28];
+    for(i=0; i<28; i++)
+    {
+        quarto_aux[i]=-1;
+    };
+
+    for(i=0; i<42; i++)
+    {
+        vaga_quartos[i]=-1;
+    };
+
+
+
+
+
+
+
+    for(i=0; i<42; i++)
+    {
+        if (reserva[i][j]==id)
+        {
+            vaga=0;
+            return  3;
+        };
+
+        for(j=ini_vetor; j<final_vetor; j++)
+        {
+            if (reserva[i][j]==id)
+            {
+                vaga=0;
+                continue;
+            }
+
+        }
+
+
+
+    };
+
+
+    if(localiza_quarto_vago(quarto_aux[28],camas,reserva[42][181],quartos [42][2],vaga_quartos[42],dia_in,mes_in,dia_out,mes_out)==1)
+    {
+        printf(" quartos disponiveis para reservar  com %d\n\n ",camas);
+        for(i=0; i<28; i++)
+        {
+            if(vaga_quartos[i]!=-1)
+            {
+                printf("disponivel quarto n° %d  preco %d \n",vaga_quartos[i],preco_diaria[camas-1]);
+            }
+            else{
+                break;
+                }
+
+        }
+    }
+    else if(localiza_quarto_reserva(quarto_aux[28],camas,reserva[42][181],quartos[42][2],vaga_quartos[42],dia_in,mes_in,dia_out,mes_out)==1)
+    {
+        printf(" quartos disponiveis para reservar  com %d\n\n ",camas);
+        for(i=0; i<28; i++)
+        {
+            if(vaga_quartos[i]!=-1)
+            {
+                printf("disponivel quarto n° %d  preco %d \n",vaga_quartos[quarto_aux[i]],preco_diaria[quartos[quarto_aux[i]][1]-1]);
+            }
+            else
+            {
+                break;
+            }
+
+        }
+
+
+    }
+    else
+    {
+        return 2;
+
+    }
+
+
+return realizar_reserva( reserva[41][182],quartos[41][2] ,bcpf,cpfs[5000],vaga_quartos[42],dia_in, mes_in,dia_out,mes_out );
+}
+
+
+int realizar_reserva(short reserva[41][182],short quartos[41][2], double bcpf,double cpfs[5000],int vaga_quartos[42],int dia_in,int mes_in,int dia_out,int mes_out)
+{
+    int ini_vetor=dataToIndex(dia_in,mes_in);
+    int final_vetor=dataToIndex(dia_out,mes_out)+1;
+    int numquarto,val;
+    int i,id,valido;
+    char op;
+
+  do{
+        printf("gentileza informar o numero do quarto para reserva");
+    scanf("%d",&numquarto);
+    for(i=0; i<42; i++)
+    {
+
+        if(numquarto==quartos[i][0])
+        {
+            numquarto=i;
+            break;
+        }
+    }
+
+    for(i=0; i<28; i++)
+    {
+        if(vaga_quartos[i]==numquarto)
+        {
+            valido=1 ;
+            break;
+
+        }else
+        valido=0;
+
+    }
+
+  }while(valido=0);
+
+  do{
+        printf("confirma a reserva  para o quarto %d no periodo  %d/%d ate %d/%d \n\n ",quartos[numquarto][0],dia_in,mes_in,dia_out,mes_out);
+         op = getch();
+        if(op=='s'||'S')
+        {
+
+            //id=criar_id(bcpf,cpfs[5000]);
+            for(i=ini_vetor;i<final_vetor;i++)
+            {
+
+                reserva[numquarto][i]=id;
+                val=1;
+                return 4;
+            }
+        }else
+		{
+        printf("opcao invalida... [S]im ou [N]ão ");
+		val=0;
+		}
+
+
+  }while(val=0);
+
+
 
 }
 
 
-int ImprimirReserva (int numquarto, short reserva[42][181], short quartos[42][2], float precodiaria[3], double *cpfs)
+}
+
+
+
+
+
+
+
+    int ImprimirReserva (int numquarto, short reserva[42][181], short quartos[42][2], float precodiaria[3], double *cpfs )
+
     {
         int numcamas;
         int numandar = (int)(numquarto/100);

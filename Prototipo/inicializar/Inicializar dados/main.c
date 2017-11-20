@@ -1,6 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+/*função que retorna periodo de dias*/
+tempo_reserva (int dia_in,int mes_in,int dia_out,int mes_out)
+/*converte data juliana em gregoriana*/
+data juliana_to_gregoriana (int juliana)
+/*converte data gregoriana para juliana*/
+int gregoriana_to_juliana (int dia, int mes, int ano)
+
+
 struct hotel
 {
     int quarto[6][7], preco[3], dia[31][6];
@@ -15,10 +23,6 @@ int main()
     int a,q,apt;
 
     apt=101;
-    for(a=0;a<3;a++)
-    {
-
-    }
     h.preco[0]=117;
     h.preco[1]=150;
     h.preco[2]=180;
