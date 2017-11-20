@@ -175,17 +175,9 @@ int main()
                 system("cls");
                 printf("---Cancelar Reserva---\n");
 
-                num_quarto = readNumQuarto(quartos);
 
-                printf("Data do check in (dia/mes): ");
-                readData(&dia_in, &mes_in);
 
-                printf("Data do check out (dia/mes): ");
-                readData(&dia_out, &mes_out);
-
-                bcpf = readCpf();
-
-                //msg = excluir_reserva(reserva, num_quarto, dia, mes, periodo, bcpf, cpfs );
+                msg = excluir_reserva(reserva, num_quarto, dia, mes, periodo, bcpf, cpfs );
 
                 switch (msg) {
                     case 0:
