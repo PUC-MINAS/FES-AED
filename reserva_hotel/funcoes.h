@@ -170,7 +170,7 @@ int gregoriana_to_juliana (int dia, int mes, int ano)
 }
 
 //reseta o programa
-void inicializa_dados (short reserva[42][181],short quartos [42][2],float preco_diaria[3], int MAX, double cpfs[MAX])
+void inicializa_dados (short reserva[42][181],short quartos [42][2],float preco_diaria[3], int MAX, double cpfs[MAX], int *nvagas)
 {
     int a,q,d;
     int aux,ex;
@@ -267,11 +267,17 @@ void inicializa_dados (short reserva[42][181],short quartos [42][2],float preco_
                         {
                             reserva[q][d]=newcpf;
                         }
-                        a=a++;
+                        a++;
                     }
-
                 }
             }
+        }
+    }
+    for(a=0;a<42;a++)
+    {
+        for(q=0;q<181;q++)
+        {
+            if (reserva[a][q]==-1){nvagas++;}
         }
     }
 }

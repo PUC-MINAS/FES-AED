@@ -224,7 +224,7 @@ int gera_cpf(int argc, char** argv)
     newcpf=cpf[0];
     aux=10;
 
-// Imprime o cpf gerado na tela
+//transfere o vetor de cpf da funcao cpfgenerator para double
     for(i = 0; i < 11; i++)
     {
         newcpf=(newcpf*aux)+cpf[i];
@@ -232,6 +232,7 @@ int gera_cpf(int argc, char** argv)
 
 // Libera a memória usada para o cpf
     free(cpf);
+
     return newcpf;
 }
 
