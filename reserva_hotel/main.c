@@ -24,6 +24,8 @@ int main()
     data dt;
     int cpf, dig;
     double bcpf;
+    float preco;
+
 
 
     //teste indexToDate
@@ -33,6 +35,13 @@ int main()
     system("pause");*/
 
     inicializa_dados(reserva, quartos, preco_diaria, MAX, cpfs);
+
+    //teste calcReserva
+    quartos[0][0] = 100;
+    quartos[0][1] = 2;
+    preco = calcReserva (quartos, preco_diaria, 5, 100);
+    printf("Preco reserva %.2f\n", preco);
+    system("pause");
 
     //teste de referenciar matriz reserva por data juliana
     /*int dia1 = 2, mes1= 1;
