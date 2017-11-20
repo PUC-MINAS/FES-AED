@@ -22,9 +22,24 @@ int main()
     double cpfs[MAX];
     int juliana;
     data dt;
-    int cpf, dig;
+    int cpf, dig, q, d;
     double bcpf;
-    float preco;
+
+    for (q=0; q<42; q++) {
+        for (d=0; d<181; d++) {
+            reserva[q][d] = -1;
+        }
+    }
+
+    quartos[0][0] = 100;
+    quartos[0][1] = 2;
+    reserva[0][20] = 0;
+    reserva[0][21] = 0;
+    reserva[0][22] = 0;
+    cpfs[0] = 10486042685;
+
+    printf("Reserva[0][20] = %d", reserva[0][20]);
+    system("pause");
 
 
 
@@ -34,14 +49,7 @@ int main()
     printf("index = %d, dia= %d, mes= %d", index, dia, mes);
     system("pause");*/
 
-    inicializa_dados(reserva, quartos, preco_diaria, MAX, cpfs);
-
-    //teste calcReserva
-    quartos[0][0] = 100;
-    quartos[0][1] = 2;
-    preco = calcReserva (quartos, preco_diaria, 5, 100);
-    printf("Preco reserva %.2f\n", preco);
-    system("pause");
+//    inicializa_dados(reserva, quartos, preco_diaria, MAX, cpfs);
 
     //teste de referenciar matriz reserva por data juliana
     /*int dia1 = 2, mes1= 1;
@@ -231,9 +239,8 @@ int main()
                         system("cls");
                         printf("---Consultar dados de um quarto---\n");
 
-                        //num_quarto = readNumQuarto(quartos);
 
-                        //ImprimirReserva(num_quarto, reserva, quartos, preco_diaria, cpfs);
+                        imprimir_reserva(reserva, quartos, preco_diaria, cpfs, op);
 
                         //msg = imprimir_reserva(reserva, quartos, preco_diaria, op, num_quarto );
 
@@ -241,7 +248,7 @@ int main()
                     case 50:
                         system("cls");
                         printf("---Consultar todas as ocupações---\n");
-                        //msg = imprimir_reserva(reserva, quartos, preco_diaria, op);
+                        imprimir_reserva(reserva, quartos, preco_diaria, cpfs, op);
                         break;
                     case 51:
                         system("cls");
