@@ -9,6 +9,7 @@ struct date
 };
 typedef struct date data;
 
+
 /*Função que converte index para data*/
 void indexToData (int index, int *dia, int *mes)
 {
@@ -21,6 +22,7 @@ void indexToData (int index, int *dia, int *mes)
     *mes = dt.mes;
 }
 
+
 /*função que converte data para index*/
 int dataToIndex (int dia, int mes)
 {
@@ -28,15 +30,13 @@ int dataToIndex (int dia, int mes)
     return juli - (gregoriana_to_juliana(1,1,2018));
 }
 
+
 /*função que retorna periodo de dias*/
 int tempo_reserva (int dia_in,int mes_in,int dia_out,int mes_out)
 {
     int juli = gregoriana_to_juliana(dia_in, mes_in, 2018);
     return juli - (gregoriana_to_juliana(dia_out,mes_out,2018));
 }
-
-
-
 
 
 /*Função que lê dia e mês digitado pelo usuário e faz validação*/
@@ -50,6 +50,7 @@ void readData (int *dia, int *mes)
         scanf("%d/%d", dia, mes);
     }
 }
+
 
 /*funcao que ler número de quartos digitado pelo usuário*/
 int readNumQuarto (short quartos [42][2])
@@ -66,6 +67,7 @@ int readNumQuarto (short quartos [42][2])
     return num_quarto;
 }
 
+
 /*funcao que ler número de camas digitado pelo usuário*/
 int readNumCamas (void)
 {
@@ -81,6 +83,7 @@ int readNumCamas (void)
     return camas;
 }
 
+
 /*Função que valida número do quarto*/
 int validaNumQuarto (int num, short quartos[42][2])
 {
@@ -95,6 +98,7 @@ int validaNumQuarto (int num, short quartos[42][2])
     }
     return 0;
 }
+
 
 /*Função para validação de data*/
 int validaData(int dia, int mes, int ano)
@@ -127,8 +131,6 @@ int validaData(int dia, int mes, int ano)
         return 0;
     }
 }
-
-
 
 
 /*juliana_to_gregoriana ()*/
@@ -170,9 +172,9 @@ int gregoriana_to_juliana (int dia, int mes, int ano)
 }
 
 //reseta o programa
-void inicializa_dados (short reserva[42][181],short quartos [42][2],float preco_diaria[3], int MAX, double cpfs[MAX])
+/*void inicializa_dados (short reserva[42][181],short quartos [42][2],float preco_diaria[3], int MAX, double cpfs[MAX])
 {
-    int a,q,d, i;
+    int a,q,d,i;
     int aux,ex;
     double newcpf;
 
@@ -195,46 +197,7 @@ void inicializa_dados (short reserva[42][181],short quartos [42][2],float preco_
     printf("Definindo número de camas pra cada quarto\n");
     quartos[0][1]   =1;//[numero do quarto][numero de camas]
     quartos[1][1]   =2;
-    quartos[2][1]   =3;
-    quartos[3][1]   =3;
-    quartos[4][1]   =1;
-    quartos[5][1]   =2;
-    quartos[6][1]   =3;
-    quartos[7][1]   =2;
-    quartos[8][1]   =3;
-    quartos[9][1]   =1;
-    quartos[10][1]  =1;
-    quartos[11][1]  =2;
-    quartos[12][1]  =3;
-    quartos[13][1]  =1;
-    quartos[14][1]  =3;
-    quartos[15][1]  =1;
-    quartos[16][1]  =2;
-    quartos[17][1]  =2;
-    quartos[18][1]  =1;
-    quartos[19][1]  =2;
-    quartos[20][1]  =3;
-    quartos[21][1]  =2;
-    quartos[22][1]  =3;
-    quartos[23][1]  =1;
-    quartos[24][1]  =1;
-    quartos[25][1]  =2;
-    quartos[26][1]  =3;
-    quartos[27][1]  =1;
-    quartos[28][1]  =3;
-    quartos[29][1]  =1;
-    quartos[30][1]  =2;
-    quartos[31][1]  =2;
-    quartos[32][1]  =1;
-    quartos[33][1]  =2;
-    quartos[34][1]  =3;
-    quartos[35][1]  =1;
-    quartos[36][1]  =2;
-    quartos[37][1]  =3;
-    quartos[38][1]  =3;
-    quartos[39][1]  =1;
-    quartos[40][1]  =2;
-    quartos[41][1]  =3;
+    quartos[2][1]   =3;    quartos[3][1]   =3;    quartos[4][1]   =1;    quartos[5][1]   =2;    quartos[6][1]   =3;    quartos[7][1]   =2;    quartos[8][1]   =3;    quartos[9][1]   =1;    quartos[10][1]  =1;    quartos[11][1]  =2;    quartos[12][1]  =3;    quartos[13][1]  =1;    quartos[14][1]  =3;    quartos[15][1]  =1;    quartos[16][1]  =2;    quartos[17][1]  =2;    quartos[18][1]  =1;    quartos[19][1]  =2;    quartos[20][1]  =3;    quartos[21][1]  =2;    quartos[22][1]  =3;    quartos[23][1]  =1;    quartos[24][1]  =1;    quartos[25][1]  =2;    quartos[26][1]  =3;    quartos[27][1]  =1;    quartos[28][1]  =3;    quartos[29][1]  =1;    quartos[30][1]  =2;    quartos[31][1]  =2;    quartos[32][1]  =1;    quartos[33][1]  =2;    quartos[34][1]  =3;    quartos[35][1]  =1;    quartos[36][1]  =2;    quartos[37][1]  =3;    quartos[38][1]  =3;    quartos[39][1]  =1;    quartos[40][1]  =2;    quartos[41][1]  =3;
 
     //definindo o numero dos quartos
     printf("Definindo o número de quartos\n");
@@ -251,7 +214,7 @@ void inicializa_dados (short reserva[42][181],short quartos [42][2],float preco_
     //Gerando 1000 reservas
     printf("Gerando 1000 reservas\n");
     a=0;
-   /* while (a<1000)
+    while (a<1000)
     {
         for(q=0; q<42; q++)
         {
@@ -262,52 +225,53 @@ void inicializa_dados (short reserva[42][181],short quartos [42][2],float preco_
                     aux=rand()%3;
                     if(aux==0)
                     {
-                        newcpf=cpf_generator();
-                        printf("Erro aqui?\n");
+                        newcpf=gera_cpf();
+                        printf("%11.0d\n",newcpf);
 
                         aux=rand()%8;
                         if(aux<3){aux=3;}
+                        //periodo
                         int l = d + aux;
                         for(d; d<l; d++)
                         {
                             reserva[q][d]=newcpf;
-                            printf("Erro aqui? a = %d, d= %d\n", a, d);
+                            printf("a = %4d, d= %3d\n", a, d);
                         }
-                        a = a+1;
-                        printf("E aqui? \n");
+                        a++;
+                        printf("    \n");
                     }
 
                 }
             }
         }
-    }*/
+    }
     int periodo = 0;
     while (a <1000) {
         //do {
             q = rand()%42;
-            d = rand()%100;
+            d = rand()%174;
             periodo = rand()%8;
-            if (periodo < 3) {
-                periodo = 3;
+            if (periodo < 3) {periodo = 3;}
+
+            for (i = d; i < periodo; i++)
+                {
+                        if (reserva[q][d+i] != -1)
+                            {
+
+                            }
+
+                 }
+
             }
-            /*for (i = 0; i < periodo; i++) {
-                if (reserva[q][d+i] != -1) {
-
-                }
-            }
-
-
-        }while ();*/
-
-
-        newcpf = cpf_generator();
+       //
+       //newcpf = gera_cpf();
         printf("A = %d - Quarto = %3d, dia= %3d, periodo= %d, cpf= %11.0lf\n", a, q, d, periodo, newcpf);
         a++;
 
-    }
+    //}
     system("pause");
 
-}
+}*/
 
 
 int incluir_reserva (short reserva[42][181], short quartos [42][2], float preco_diaria[3],int num_quarto,double bcpf,int dia_in,int mes_in,int dia_out,int mes_out)
@@ -331,8 +295,6 @@ int ImprimirReserva (int numquarto, short reserva[42][181], short quartos[42][2]
         }
         printf("%d° andar, quarto %d (%d camas)", numandar, numquarto, numcamas);
     }
-
-
 
 
 

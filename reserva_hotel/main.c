@@ -32,7 +32,7 @@ int main()
     printf("index = %d, dia= %d, mes= %d", index, dia, mes);
     system("pause");*/
 
-    inicializa_dados(reserva, quartos, preco_diaria, MAX, cpfs);
+    //inicializa_dados(reserva, quartos, preco_diaria, MAX, cpfs);
 
     //teste de referenciar matriz reserva por data juliana
     /*int dia1 = 2, mes1= 1;
