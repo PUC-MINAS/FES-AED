@@ -172,7 +172,7 @@ int gregoriana_to_juliana (int dia, int mes, int ano)
 }
 
 //reseta o programa
-/*void inicializa_dados (short reserva[42][181],short quartos [42][2],float preco_diaria[3], int MAX, double cpfs[MAX])
+void inicializa_dados (short reserva[42][181],short quartos [42][2],float preco_diaria[3], int MAX, double cpfs[MAX])
 {
 
     int a,q,d,i;
@@ -212,29 +212,37 @@ int gregoriana_to_juliana (int dia, int mes, int ano)
 
    //gerando  1000 reservas
     a=0;
+    int x=0;
     while (a<1000)
     {
         for(q=0; q<42; q++)
         {
-            for(d=0; d<181; d++)
+            for(d=0; d<174; d++)
             {
                 if (reserva[q][d]==-1)
                 {
                     aux=rand()%3;
                     if(aux==0)
                     {
-
                         newcpf=gera_cpf();
-                        printf("%11.0d\n",newcpf);
+                        printf("cpf %11.0d\n",newcpf);
 
+                        //periodo da reserva
                         aux=rand()%8;
                         if(aux<3){aux=3;}
-                        //periodo
                         int l = d + aux;
-                        for(d; d<l; d++)
+                        //conferindo se os dias a diante estão vagos
+                        for(d;d<l;d++)
                         {
-                            reserva[q][d]=newcpf;
-                            printf("a = %4d, d= %3d\n", a, d);
+                            if(reserva[q][d]==-1)
+                            {
+                                x++;
+                            }
+                            if (x==aux)
+                            {
+                                reserva[q][d]=newcpf;
+                            }
+                            printf("a = %4d, d= %3d cpf %11hi\n",a,d,newcpf);
                         }
                         a++;
                         printf("    \n");
@@ -246,7 +254,7 @@ int gregoriana_to_juliana (int dia, int mes, int ano)
         }
     }
 
-    int periodo = 0;
+    /*xint periodo = 0;
     while (a <1000) {
         //do {
             q = rand()%42;
@@ -270,15 +278,15 @@ int gregoriana_to_juliana (int dia, int mes, int ano)
         a++;
 
     //}
-    system("pause");
+    system("pause");*/
 
-}*/
-
-
+}
 
 
 
-int incluir_reserva (short reserva[42][181], short quartos [42][2], float preco_diaria[3],int camas,double bcpf,double cpfs[5000],int dia_in,int mes_in,int dia_out,int mes_out)
+
+
+/*int incluir_reserva (short reserva[42][181], short quartos [42][2], float preco_diaria[3],int camas,double bcpf,double cpfs[5000],int dia_in,int mes_in,int dia_out,int mes_out)
 {
 
     int ini_vetor=dataToIndex(dia_in,mes_in);
@@ -367,7 +375,7 @@ int incluir_reserva (short reserva[42][181], short quartos [42][2], float preco_
 
 return realizar_reserva( reserva[41][182],quartos[41][2] ,bcpf,cpfs[5000],vaga_quartos[42],dia_in, mes_in,dia_out,mes_out );
 }
-
+*/
 
 int realizar_reserva(short reserva[41][182],short quartos[41][2], double bcpf,double cpfs[5000],int vaga_quartos[42],int dia_in,int mes_in,int dia_out,int mes_out)
 {
