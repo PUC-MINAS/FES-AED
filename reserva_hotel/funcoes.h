@@ -622,10 +622,10 @@ int realizar_reserva(short reserva[41][182],short quartos[41][2], double bcpf,do
 
 //funcao excluir reserva;
 
-void excluir_reserva(short reserva[42][181], short quartos[42][2],int num, int MAX, double *cpfs,int dia_in, int mes_in, int dia_out, int mes_out,int nvagas,int dia,int mes,int ano,int num_quarto)
+int excluir_reserva(short reserva[42][181], short quartos[42][2],int num, int MAX, double *cpfs,int dia_in, int mes_in, int dia_out, int mes_out,int nvagas,int dia,int mes,int ano,int num_quarto)
 {
-    int entrada,saida,cpf,cont,valida_exclusao=0,q,d,aux;
-
+    int entrada,saida,cont,valida_exclusao,q,d,aux;
+valida_exclusao=0;
   bcpf = readCpf();
 
    //0 - indica que o quarto não existe;
@@ -649,17 +649,20 @@ void excluir_reserva(short reserva[42][181], short quartos[42][2],int num, int M
     if(saida<entrada||entrada=saida){
     return 1;
     }
-   =========
     else{
         valida_exclusao++;
     }
 
-==============
     //2 - Indica reserva inexistente no periodo;
+   ==========
+    num_quarto eh um campo da matriz quartos
+    porem tem q olhar o cpf na matriz reserva referente akeles dias
+    e tem q ver se ta no num_quarto certo
+    ==========
     aux=0;
     for(d=entrada; d<saida+1; d++)
     {
-        if (quartos[q][0]==num_quarto)
+        if (quartos[d][0]==num_quarto)
         {
             if (reserva[q][d]==bcpf)
             {
@@ -681,7 +684,7 @@ void excluir_reserva(short reserva[42][181], short quartos[42][2],int num, int M
     {
         for (d=0; d<181;d++)
         {
-            if (cpf==reserva[q][d])
+            if (bcpf==reserva[q][d])
             {
                 valida_exclusao++;
                 aux=1;
@@ -690,7 +693,7 @@ void excluir_reserva(short reserva[42][181], short quartos[42][2],int num, int M
     }
     if (aux==0)
     {
-        printf("\n4 - CPF não corresponde com a reserva!");
+        return 4;
         cont=0;
     }
 
@@ -705,7 +708,7 @@ void excluir_reserva(short reserva[42][181], short quartos[42][2],int num, int M
     if(cont==1)
     {
 //3 - indica exclusão realizada com sucesso;
-        printf("\n3 - Exclusão realizada com sucesso!");
+        return 3;
 
 //atualizar o número de vagas no hotel;
 
@@ -716,12 +719,14 @@ void excluir_reserva(short reserva[42][181], short quartos[42][2],int num, int M
                 if(reserva[q][d]==-1)
                 {
                     nvagas=nvagas+1;
-                    printf("\nNumero de vagas é: %d",nvagas);
                 }
 
 
             }
         }
     }
+return nvagas;
 }
-
+========
+precisa do nvagas pra alguma coisa?
+========
