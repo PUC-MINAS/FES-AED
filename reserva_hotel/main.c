@@ -24,6 +24,7 @@ int main()
     data dt;
     int cpf, dig, q, d;
     double bcpf;
+    float preco;
 
     for (q=0; q<42; q++) {
         for (d=0; d<181; d++) {

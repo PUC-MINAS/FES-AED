@@ -36,7 +36,18 @@ int tempo_reserva (int dia_in,int mes_in,int dia_out,int mes_out)
 }
 
 
-
+float calcReserva (short quartos[42][2], float preco_diaria[3], int periodo, int num_quarto) {
+    int camas, i;
+    float preco;
+    for (i=0; i<42; i++) {
+        if (num_quarto == quartos[i][0]) {
+            camas = quartos[i][1];
+            break;
+        }
+    }
+    preco = preco_diaria[camas-1];
+    return preco * ((float)periodo);
+ }
 
 
 /*Função que lê dia e mês digitado pelo usuário e faz validação*/
