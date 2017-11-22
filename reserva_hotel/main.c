@@ -26,7 +26,7 @@ int main()
     double bcpf;
     float preco;
 
-    for (q=0; q<42; q++) {
+/*    for (q=0; q<42; q++) {
         for (d=0; d<181; d++) {
             reserva[q][d] = -1;
         }
@@ -51,7 +51,9 @@ int main()
     printf("Id_cpf = %d - CPF = %11.0lf\n", id_cpf, cpfs[id_cpf]);
 
 
+
     system("pause");*/
+
 
 
 
@@ -62,7 +64,7 @@ int main()
     system("pause");*/
 
 
-    //inicializa_dados(reserva, quartos, preco_diaria, MAX, cpfs);
+    inicializa_dados(reserva, quartos, preco_diaria, MAX, cpfs);
 
     //teste calcReserva
     /*quartos[0][0] = 100;
@@ -126,6 +128,7 @@ int main()
         printf("1 - Fazer reserva\n");
         printf("2 - Cancelar reserva\n");
         printf("3 - Consultar reservas\n");
+        //printf("4 - Resetar programa\n");
         printf("ESC para sair do programa\n");
         op = getch();
 
