@@ -22,8 +22,9 @@ int main()
     double cpfs[MAX];
     int juliana;
     data dt;
-    int cpf, dig, q, d;
+    int cpf, dig, q, d, id_cpf;
     double bcpf;
+    float preco;
 
 /*    for (q=0; q<42; q++) {
         for (d=0; d<181; d++) {
@@ -31,16 +32,29 @@ int main()
         }
     }
 
-    quartos[0][0] = 100;
-    quartos[0][1] = 2;
-    reserva[0][20] = 0;
-    reserva[0][21] = 0;
-    reserva[0][22] = 0;
-    cpfs[0] = 10486042685;
+    for (q=0; q<5000 ; q++) {
+        cpfs[q] = -1;
+    }
 
-    printf("Reserva[0][20] = %d", reserva[0][20]);
-    system("pause");
-*/
+    quartos[0][0] = 101;
+    quartos[0][1] = 2;
+    /*reserva[0][20] = 0;
+    reserva[0][21] = 0;
+    reserva[0][22] = 0;*/
+
+    /*id_cpf = criar_id(10486042685, cpfs);
+
+    printf("Id_cpf = %d - CPF = %11.0lf\n", id_cpf, cpfs[id_cpf]);
+
+    id_cpf = criar_id( 1351149695, cpfs);
+
+    printf("Id_cpf = %d - CPF = %11.0lf\n", id_cpf, cpfs[id_cpf]);
+
+
+
+    system("pause");*/
+
+
 
 
     //teste indexToDate

@@ -36,6 +36,21 @@ int tempo_reserva (int dia_in,int mes_in,int dia_out,int mes_out)
 }
 
 
+
+float calcReserva (short quartos[42][2], float preco_diaria[3], int periodo, int num_quarto) {
+    int camas, i;
+    float preco;
+    for (i=0; i<42; i++) {
+        if (num_quarto == quartos[i][0]) {
+            camas = quartos[i][1];
+            break;
+        }
+    }
+    preco = preco_diaria[camas-1];
+    return preco * ((float)periodo);
+ }
+
+
 /*Função que lê dia e mês digitado pelo usuário e faz validação*/
 
 void readData (int *dia, int *mes)
@@ -287,8 +302,55 @@ void inicializa_dados (short reserva[42][181],short quartos [42][2],float preco_
 }
 
 
+<<<<<<< HEAD
 /*
 int incluir_reserva (short reserva[42][181], short quartos [42][2], float preco_diaria[3],int camas,double bcpf,double cpfs[5000],int dia_in,int mes_in,int dia_out,int mes_out)
+=======
+
+
+/*Localiza index de posição do CPF no vetor cpfs
+  Retorna index da posição se encontrar ou -1 se não encontrar*/
+int localizar_id( double bcpf,double cpfs[5000])
+{
+    int i=0;
+    int id=-1;
+    for(i=0; i<5000;i++)
+    {
+        if(bcpf==cpfs[i])
+        {
+            return i;
+        }
+    }
+    return id;
+}
+
+/*Cria um index para um cpf e armazenha o cpf no vetor cpfs
+  Retorna posição do vetor*/
+int criar_id(double bcpf, double cpfs[5000])
+{
+    int i;
+    int id_cpf = localizar_id(bcpf,cpfs);
+
+    if(id_cpf==-1)
+    {
+        for(i=0; i<5000; i++)
+        {
+            if(cpfs[i]==-1)
+            {
+                cpfs[i]=bcpf;
+                id_cpf=i;
+                return id_cpf;
+            }
+        }
+    }
+
+return id_cpf;
+}
+
+
+
+/*int incluir_reserva (short reserva[42][181], short quartos [42][2], float preco_diaria[3],int camas,double bcpf,double cpfs[5000],int dia_in,int mes_in,int dia_out,int mes_out)
+>>>>>>> master
 {
 
     int ini_vetor=dataToIndex(dia_in,mes_in);
@@ -439,7 +501,7 @@ int realizar_reserva(short reserva[41][182],short quartos[41][2], double bcpf,do
 
 
 
-}
+}*/
 
 
 
