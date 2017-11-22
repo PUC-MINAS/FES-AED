@@ -36,9 +36,6 @@ int tempo_reserva (int dia_in,int mes_in,int dia_out,int mes_out)
 }
 
 
-
-
-
 /*Função que lê dia e mês digitado pelo usuário e faz validação*/
 
 void readData (int *dia, int *mes)
@@ -171,36 +168,47 @@ int gregoriana_to_juliana (int dia, int mes, int ano)
     return juliana ;
 }
 
-//reseta o programa
-void inicializa_dados (short reserva[42][181],short quartos [42][2],float preco_diaria[3], int MAX, double cpfs[MAX])
+
+//retorna as camas para o padrao
+void resetacamas(short quartos[42][2])
 {
-
-    int a,q,d,i;
-    int aux,ex;
-    double newcpf;
-
-    //definindo o valor de quarto para quantidade de camas-+
-    for(a=0; a<3; a++)
-    {
-        printf("Defina o valor do quarto para %d cama(s): ",a+1);
-        scanf("%f", &preco_diaria[a]);
-    }
-    //reseta todas as reservas
-    for(a=0; a<42; a++)
-    {
-        for(q=0; q<181; q++)
-        {
-            quartos[a][q]=-1;
-        }
-    }
-
     //definindo numero de camas pra cada quarto
     quartos[0][1]   =1;//[numero do quarto][numero de camas]
     quartos[1][1]   =2;
     quartos[2][1]   =3;    quartos[3][1]   =3;    quartos[4][1]   =1;    quartos[5][1]   =2;    quartos[6][1]   =3;    quartos[7][1]   =2;    quartos[8][1]   =3;    quartos[9][1]   =1;    quartos[10][1]  =1;    quartos[11][1]  =2;    quartos[12][1]  =3;    quartos[13][1]  =1;    quartos[14][1]  =3;    quartos[15][1]  =1;    quartos[16][1]  =2;    quartos[17][1]  =2;    quartos[18][1]  =1;    quartos[19][1]  =2;    quartos[20][1]  =3;    quartos[21][1]  =2;    quartos[22][1]  =3;    quartos[23][1]  =1;    quartos[24][1]  =1;    quartos[25][1]  =2;    quartos[26][1]  =3;    quartos[27][1]  =1;    quartos[28][1]  =3;    quartos[29][1]  =1;    quartos[30][1]  =2;    quartos[31][1]  =2;    quartos[32][1]  =1;    quartos[33][1]  =2;    quartos[34][1]  =3;    quartos[35][1]  =1;    quartos[36][1]  =2;    quartos[37][1]  =3;    quartos[38][1]  =3;    quartos[39][1]  =1;    quartos[40][1]  =2;    quartos[41][1]  =3;
 
-    //definindo o numero dos quartos
-    int apt=8;
+}
+
+//definindo o valor de quarto para quantidade de camas
+void definepreco (float preco_diaria[3])
+{
+    int a;
+
+    for(a=0; a<3; a++)
+    {
+        printf("Defina o valor do quarto para %d cama(s): ",a+1);
+        scanf("%f", &preco_diaria[a]);
+    }
+    printf("\n");
+}
+
+//reseta todas as reservas
+void resetreservas(short reserva[42][181])
+    {
+        int a,q;
+        for(a=0; a<42; a++)
+        {
+            for(q=0; q<181; q++)
+            {
+                reserva[a][q]=-1;
+            }
+        }
+    }
+
+//definindo o numero dos quartos
+void nomeiaquartos(short quartos[42][2])
+    {
+    int a,apt=8;
     for(a=0; a<42; a++)
     {
         if (a%7==0)
@@ -209,78 +217,76 @@ void inicializa_dados (short reserva[42][181],short quartos [42][2],float preco_
         }
         quartos[a][0]=a+apt;
     }
-
-   //gerando  1000 reservas
-    a=0;
-    int x=0;
-    while (a<1000)
-    {
-        for(q=0; q<42; q++)
-        {
-            for(d=0; d<174; d++)
-            {
-                if (reserva[q][d]==-1)
-                {
-                    aux=rand()%3;
-                    if(aux==0)
-                    {
-                        newcpf=gera_cpf();
-                        printf("cpf %11.0d\n",newcpf);
-
-                        //periodo da reserva
-                        aux=rand()%8;
-                        if(aux<3){aux=3;}
-                        int l = d + aux;
-                        //conferindo se os dias a diante estão vagos
-                        for(d;d<l;d++)
-                        {
-                            if(reserva[q][d]==-1)
-                            {
-                                x++;
-                            }
-                            if (x==aux)
-                            {
-                                reserva[q][d]=newcpf;
-                            }
-                            printf("a = %4d, d= %3d cpf %11hi\n",a,d,newcpf);
-                        }
-                        a++;
-                        printf("    \n");
-
-                    }
-
-                }
-            }
-        }
     }
 
-    /*xint periodo = 0;
-    while (a <1000) {
-        //do {
-            q = rand()%42;
-            d = rand()%174;
-            periodo = rand()%8;
-            if (periodo < 3) {periodo = 3;}
+//gerando  1000 reservas
+void gerar1000reservas(short reserva[42][181])
+{
+    int x=0;
+    int a=0;
+    int q,d,aux;
 
-            for (i = d; i < periodo; i++)
-                {
-                        if (reserva[q][d+i] != -1)
-                            {
+    unsigned long int newcpf;
 
-                            }
+    int l;
 
-                 }
+    while (a<1000)
+    {
+        q = rand()%42;
+        d = rand()%174;
+        if (reserva[q][d]==-1)
+        {
+            aux=rand()%3;
+            if(aux==0)
+            {
+                newcpf=geradorcpf();
+                printf("%11d funcao\n",newcpf);
+                printf("%4d",a);
+                //periodo da reserva
+                aux=rand()%8;
+                if(aux<3){aux=3;}
+                l=d+aux;
 
+                //conferindo se os dias a diante estão vagos
+                for(d;d<l;d++)
+                    {
+                        if(reserva[q][d]==-1)
+                        {
+                            x++;
+                        }
+                    }
+                    //ocupando os dias
+                    if (x==aux)
+                    {
+                        a++;
+                        for(d;d<l;d++)
+                        {
+                            reserva[q][d]=newcpf;
+                            printf("reserva[%2d][%3d]: %11d\n",q,d,reserva[q][d]);
+                        }
+                    }
             }
-       //
-       //newcpf = gera_cpf();
-        printf("A = %d - Quarto = %3d, dia= %3d, periodo= %d, cpf= %11.0lf\n", a, q, d, periodo, newcpf);
-        a++;
-
-    //}
-    system("pause");*/
-
+            printf("\n");
+        }
+    }
 }
+
+
+//reseta o programa
+void inicializa_dados (short reserva[42][181],short quartos [42][2],float preco_diaria[3], int MAX, double cpfs[MAX])
+{
+    int a,q,d,i;
+    int aux,ex;
+    int newcpf;
+
+    resetacamas(quartos);
+    //definepreco(preco_diaria);
+    resetreservas(reserva);
+    nomeiaquartos(quartos);
+    //gerar1000reservas(reserva);
+}
+
+
 
 
 

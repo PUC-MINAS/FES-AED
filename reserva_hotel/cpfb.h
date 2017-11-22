@@ -17,9 +17,6 @@ double readCpf ()
 }
 
 
-
-
-
 void cpfDoubleToInt (double *pcpfs, int *pcpf, int *pdig)
 {
     double cpfs = *pcpfs;
@@ -36,9 +33,6 @@ void cpfIntToDouble (double *cpfs, int *cpf, int *dig)
     //cpfs[1] = (double)cpf*100 + dig;
     *cpfs = (double)*cpf*100 + *dig;
 }
-
-
-
 
 
 /*Funcao que trabalha junto com a valida_CPF*/
@@ -73,11 +67,6 @@ int soma_cpf (int cpf, int dig)
     }
     return soma;
 }
-
-
-
-
-
 
 
 /*Funcao para validar CPF*/
@@ -115,6 +104,83 @@ int valida_cpf (double cpfs)
 }
 
 
+
+
+int digito1(int vetor[9])
+{
+    int soma,dig1,i,a,aux,resto;
+    a=10;
+    soma=0;
+    for (i = 0; i < 9; i++);
+    {
+        aux=vetor[i]*a;
+        soma=soma+aux;
+        a--;
+    }
+    resto=soma%11;
+    if (resto<2)
+    {
+        dig1=0;
+    }
+    else
+    {
+        dig1=11-resto;
+    }
+    return dig1;
+
+}
+
+int digito2(int vetor[9],int digit1)
+{
+    int soma,dig2,i,a,aux,resto;
+    a=11;
+    soma=digit1*2;
+    for (i = 0; i < 9; i++);
+    {
+        aux=vetor[i]*a;
+        soma=soma+aux;
+        a--;
+    }
+    resto=soma%11;
+    if(resto<2)
+    {
+        dig2=0;
+
+    }
+    else
+    {
+        dig2=11-resto;
+    }
+    return dig2;
+
+}
+
+int geradorcpf()
+{
+    int i,vetor[9],digit1,digit2;
+    for (i=0; i<9; i++)
+    {
+        //scanf("%d",&vetor[i]);
+        vetor[i]=rand()%10;
+    }
+    digit1=digito1(vetor);
+    digit2=digito2(vetor,digit1);
+    unsigned long int newcpf;
+    newcpf=0;
+    //transforma vetor em variavel simples
+    for (i=0; i<9;  i++)
+    {
+        newcpf=(newcpf*10)+vetor[i];
+    }
+    printf("%11d nodig\n",newcpf);
+    newcpf=(newcpf*10)+digit1;
+    printf("%11d 1dig\n",newcpf);
+    newcpf=(newcpf*10)+digit2;
+    printf("%11d 2dig\n",newcpf);
+    system("pause");
+    return newcpf;
+
+}
 
 
 // Função Geradora de CPF
@@ -209,10 +275,9 @@ int cpf_generator()
 }
 
 
-
 // Função main
 // Main geradora de cpf
-int gera_cpf(int argc, char** argv)
+int geracpf(int argc, char** argv)
 {
     int *cpf, i, aux;
     double newcpf;
@@ -234,5 +299,8 @@ int gera_cpf(int argc, char** argv)
     free(cpf);
     return newcpf;
 }
+
+
+
 
 #endif // CPFB_H_INCLUDED
