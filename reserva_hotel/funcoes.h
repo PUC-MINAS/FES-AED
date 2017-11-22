@@ -287,11 +287,7 @@ void inicializa_dados (short reserva[42][181],short quartos [42][2],float preco_
 }
 
 
-
-
-
-
-
+/*
 int incluir_reserva (short reserva[42][181], short quartos [42][2], float preco_diaria[3],int camas,double bcpf,double cpfs[5000],int dia_in,int mes_in,int dia_out,int mes_out)
 {
 
@@ -381,7 +377,7 @@ int incluir_reserva (short reserva[42][181], short quartos [42][2], float preco_
 
 return realizar_reserva( reserva[41][182],quartos[41][2] ,bcpf,cpfs[5000],vaga_quartos[42],dia_in, mes_in,dia_out,mes_out );
 }
-
+*/
 
 int realizar_reserva(short reserva[41][182],short quartos[41][2], double bcpf,double cpfs[5000],int vaga_quartos[42],int dia_in,int mes_in,int dia_out,int mes_out)
 {
