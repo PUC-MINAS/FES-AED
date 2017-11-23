@@ -155,6 +155,7 @@ int digito2(int vetor[9],int digit1)
 
 }
 
+//gerador cpf:lebana
 int geradorcpf()
 {
     int i,vetor[9],digit1,digit2;
@@ -181,6 +182,10 @@ int geradorcpf()
     return newcpf;
 
 }
+
+
+
+
 
 
 // Função Geradora de CPF
@@ -301,6 +306,56 @@ int geracpf(int argc, char** argv)
 }
 
 
+
+
+
+
+
+int cpf_generator(char cpf[11])
+{
+    int i, j, dig = 0;
+    srand(time(NULL));
+    for(i = 0; i <= 9; i++){
+        cpf[i] = (rand() % 10) + 48;}
+    for(i = 0, j = 10; i <= strlen(cpf)-2; i++, j--){
+        dig += (cpf[i]-48) * j;}
+    dig %= 11;
+    if(dig < 2){
+        cpf[9] = 48;}
+    else{
+        cpf[9] = (11-dig)+48;}
+    dig = 0;
+    for(i = 0, j = 11; i <= strlen(cpf)-1; i++, j--)
+    {
+        dig += (cpf[i]-48) * j;
+    }
+    dig %= 11;
+    if(dig < 2){
+        cpf[10] = 48;}
+    else{
+        cpf[10] = (11-dig)+48;}
+}
+
+int gerandocpf()
+{
+    char cpf[11];
+    int i;
+    unsigned long int newcpf;
+    cpf_generator(cpf);
+    printf("\n");
+    for(i = 0; i < 11; i++)
+    {
+        printf("%c", cpf[i]);
+    }
+    //transforma vetor em variavel simples
+    for (i=0; i<11;  i++)
+    {
+        newcpf=(newcpf*10)+cpf[i];
+    }
+    printf("\n");
+    system("pause");
+    return newcpf;
+}
 
 
 #endif // CPFB_H_INCLUDED

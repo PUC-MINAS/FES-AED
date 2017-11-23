@@ -10,7 +10,7 @@ struct date
 typedef struct date data;
 
 /*Função que converte index para data*/
-void indexToData (int index, int *dia, int *mes)
+/*void indexToData (int index, int *dia, int *mes)
 {
     data juliana_to_gregoriana (int juliana);
     int datainicial = gregoriana_to_juliana(1,1,2018);
@@ -20,7 +20,7 @@ void indexToData (int index, int *dia, int *mes)
     *dia = dt.dia;
     *mes = dt.mes;
 }
-
+*/
 /*função que converte data para index*/
 int dataToIndex (int dia, int mes)
 {
@@ -52,7 +52,6 @@ float calcReserva (short quartos[42][2], float preco_diaria[3], int periodo, int
 
 
 /*Função que lê dia e mês digitado pelo usuário e faz validação*/
-
 void readData (int *dia, int *mes)
 {
     scanf("%d/%d", dia, mes);
@@ -66,7 +65,6 @@ void readData (int *dia, int *mes)
 
 
 /*funcao que ler número de quartos digitado pelo usuário*/
-
 int readNumQuarto (short quartos [42][2])
 {
     int num_quarto;
@@ -147,7 +145,7 @@ int validaData(int dia, int mes, int ano)
 
 /*juliana_to_gregoriana ()*/
 /*converte data juliana em gregoriana*/
-data juliana_to_gregoriana (int juliana)
+/*int data juliana_to_gregoriana(int juliana)
 {
     int b, n, k, j, dia, mes, ano;
     long int data1;
@@ -169,6 +167,7 @@ data juliana_to_gregoriana (int juliana)
     dt.mes = (int)data1%100;
     return dt;
 }
+*/
 
 /*gregoriana_to-juliana ()*/
 /*converte data gregoriana para juliana*/
@@ -254,7 +253,7 @@ void gerar1000reservas(short reserva[42][181])
             aux=rand()%3;
             if(aux==0)
             {
-                newcpf=geradorcpf();
+                newcpf=gerandocpf();
                 printf("%11d funcao\n",newcpf);
                 printf("%4d",a);
                 //periodo da reserva
@@ -290,19 +289,14 @@ void gerar1000reservas(short reserva[42][181])
 //reseta o programa
 void inicializa_dados (short reserva[42][181],short quartos [42][2],float preco_diaria[3], int MAX, double cpfs[MAX])
 {
-    int a,q,d,i;
-    int aux,ex;
-    int newcpf;
-
     resetacamas(quartos);
     //definepreco(preco_diaria);
     resetreservas(reserva);
     nomeiaquartos(quartos);
-    //gerar1000reservas(reserva);
+    gerar1000reservas(reserva);
 }
 
 
-<<<<<<< HEAD
 /*
 int incluir_reserva (short reserva[42][181], short quartos [42][2], float preco_diaria[3],int camas,double bcpf,double cpfs[5000],int dia_in,int mes_in,int dia_out,int mes_out)
 =======
@@ -501,20 +495,13 @@ int realizar_reserva(short reserva[41][182],short quartos[41][2], double bcpf,do
 
 
 
-}*/
-
-
-
-
-
-
-
+}
 
 
 
 void imprimir_reserva (short reserva[42][181], short quartos[42][2], float preco_diaria[3], double *cpfs, char op)
 {
-    int id_quarto, id_cpf, checkin, checkout, i, andar, dia_in, mes_in, dia_out, mes_out, num_quarto, d, q;
+/*    int id_quarto, id_cpf, checkin, checkout, i, andar, dia_in, mes_in, dia_out, mes_out, num_quarto, d, q;
     switch (op)
     {
         case '1':
@@ -576,7 +563,7 @@ void imprimir_reserva (short reserva[42][181], short quartos[42][2], float preco
 
                 }
             }
-    }
+    }*/
 }
 
 
