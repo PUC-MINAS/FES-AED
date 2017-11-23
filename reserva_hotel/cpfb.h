@@ -300,6 +300,36 @@ int geracpf(int argc, char** argv)
     return newcpf;
 }
 
+double gera_cpf3(void){
+    int i ;
+    double newcpf = 0.00;
+    int cpf=0, cpf_dig, somatorio, dig1, dig2;
+
+    for (i= 0; i<9; i++) {
+        cpf = (cpf*10) + (rand() % 10);
+    }
+
+    somatorio = soma_cpf(cpf, -1);
+    dig1 = 11 - (somatorio % 11); //printf("\ndig1: %d", dig1);
+    if (dig1 > 9)
+    {
+        dig1 = 0; //printf("\ndig1: %d", dig1);
+    }
+    somatorio = soma_cpf(cpf, dig1);  //printf("\nsomatorio: %d", somatorio);
+    dig2 = 11 - (somatorio % 11); //printf("\ndig2: %d", dig2);
+    if (dig2 > 9)
+    {
+        dig2 = 0; //printf("\ndig2: %d", dig2);
+    }
+    cpf_dig = (dig1*10) + dig2;
+    cpfIntToDouble(&newcpf, &cpf, &cpf_dig);
+
+    if (valida_cpf(newcpf)) {
+        return newcpf;
+    }
+    else return -1;
+}
+
 
 
 
