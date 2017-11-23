@@ -104,8 +104,82 @@ int valida_cpf (double cpfs)
 }
 
 
+int geracpf1()
+{
+        int numero[9],soma1,soma2,i,erro,cpf,quant;
+        int parte1,parte2,parte3,dig1;
+        int parte5,parte6,parte7,dig2;
+        //*==========================================*
+        //|        Geração dos numeros do CPF        |
+        //*==========================================*
+            for(i=1;i<= 9;i++)
+            {
+               erro=1;
+               do
+               {
+                  if(erro>1)
+                  {
+                     printf("Numero invalido.\n");
+                     erro=1;
+                  }
+                  numero[i]=rand()%9;
+                  erro++;
+               }while(numero[i]>9 || numero[i]<0);
+            }
+            //*==========================================*
+            //|       Primeiro digito veridicador        |
+            //*==========================================*
+            soma1=((numero[1]*10)+
+                  (numero[2]*9)+
+                  (numero[3]*8)+
+                  (numero[4]*7)+
+                  (numero[5]*6)+
+                  (numero[6]*5)+
+                  (numero[7]*4)+
+                  (numero[8]*3)+
+                  (numero[9]*2));
+            parte1=(soma1 / 11);
+            parte2=(parte1 * 11);
+            parte3=(soma1 - parte2);
+            dig1=(11 - parte3);
+            if(dig1>9)dig1=0;
+            //*==========================================*
+            //|        Segundo digito veridicador        |
+            //*==========================================*
+            soma2=((numero[1]*11)+
+                  (numero[2]*10)+
+                  (numero[3]*9)+
+                  (numero[4]*8)+
+                  (numero[5]*7)+
+                  (numero[6]*6)+
+                  (numero[7]*5)+
+                  (numero[8]*4)+
+                  (numero[9]*3)+
+                  (dig1*2));
+            parte5=(soma2 / 11);
+            parte6=(parte5 * 11);
+            parte7=(soma2 - parte6);
+            dig2=(11 - parte7);
+            if(dig2>9)dig2=0;
+            //*==========================================*
+            //|       Impressao do numero completo       |
+            //*==========================================*
+            double cpfnovo;
+            for(i=1;i<=9;i++)
+            {
+               printf("%d",numero[i]);
+               cpfnovo=cpfnovo*10+numero[i];
+               printf("%11.0lf\n",cpfnovo);
+            }
+            printf("%d%d\n",dig1,dig2); //dois últimos digitos
+            cpfnovo=cpfnovo*10+dig1;
+            cpfnovo=cpfnovo*10+dig2;
+            //printf("%.0lf",cpfnovo);
+            return cpfnovo;
+}
 
 
+/*
 int digito1(int vetor[9])
 {
     int soma,dig1,i,a,aux,resto;
@@ -178,14 +252,11 @@ int geradorcpf()
     printf("%11d 1dig\n",newcpf);
     newcpf=(newcpf*10)+digit2;
     printf("%11d 2dig\n",newcpf);
+
     system("pause");
     return newcpf;
 
 }
-
-
-
-
 
 
 // Função Geradora de CPF
@@ -304,12 +375,14 @@ int geracpf(int argc, char** argv)
     free(cpf);
     return newcpf;
 }
+*/
+/*
+double gera_cpf3(){
 
-double gera_cpf3(void){
     int i ;
     double newcpf = 0.00;
     int cpf=0, cpf_dig, somatorio, dig1, dig2;
-
+    //randomisa 9 digitos
     for (i= 0; i<9; i++) {
         cpf = (cpf*10) + (rand() % 10);
     }
@@ -320,27 +393,30 @@ double gera_cpf3(void){
     {
         dig1 = 0; //printf("\ndig1: %d", dig1);
     }
+
     somatorio = soma_cpf(cpf, dig1);  //printf("\nsomatorio: %d", somatorio);
     dig2 = 11 - (somatorio % 11); //printf("\ndig2: %d", dig2);
+
     if (dig2 > 9)
     {
         dig2 = 0; //printf("\ndig2: %d", dig2);
     }
+
     cpf_dig = (dig1*10) + dig2;
     cpfIntToDouble(&newcpf, &cpf, &cpf_dig);
 
     if (valida_cpf(newcpf)) {
         return newcpf;
     }
-    else return -1;
+    else {return -1;}
 }
+*/
 
 
 
 
 
-
-
+/*
 int cpf_generator(char cpf[11])
 {
     int i, j, dig = 0;
@@ -386,6 +462,6 @@ int gerandocpf()
     system("pause");
     return newcpf;
 }
-
+*/
 
 #endif // CPFB_H_INCLUDED

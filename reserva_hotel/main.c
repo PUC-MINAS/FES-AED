@@ -4,6 +4,7 @@
 #include <conio.h>
 #include "funcoes.h"
 #include "cpfb.h"
+#include "inicializa.h"
 #define ESC 27
 #define MAX 5000
 
@@ -15,7 +16,7 @@ int main()
     char op=0;
     const int ano = 2018;
     const int DATAINICIAL = gregoriana_to_juliana(1,1,2018);
-    int num_quarto, dia, mes, periodo;
+    int num_quarto, dia, mes, periodo, nvagas;
     short reserva[42][181];  //reseva[id do quarto][dia] = id_cpfs
     short quartos [42][2]; //quartos[numero do quarto][quantidade de camas]
     float preco_diaria[3]; // preco_diaria[quant_camas-1] = preco
@@ -64,7 +65,7 @@ int main()
     system("pause");*/
 
 
-    inicializa_dados(reserva, quartos, preco_diaria, MAX, cpfs);
+    inicializa_dados(reserva, quartos, preco_diaria, MAX, cpfs, nvagas);
 
     //teste calcReserva
     /*quartos[0][0] = 100;
