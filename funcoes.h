@@ -14,7 +14,7 @@ typedef struct date data;
 
 
 /*Função que converte index para data*/
-/*void indexToData (int index, int *dia, int *mes)
+void indexToData (int index, int *dia, int *mes)
 {
     data juliana_to_gregoriana (int juliana);
     int datainicial = gregoriana_to_juliana(1,1,2018);
@@ -24,7 +24,7 @@ typedef struct date data;
     *dia = dt.dia;
     *mes = dt.mes;
 }
-*/
+
 /*função que converte data para index*/
 int dataToIndex (int dia, int mes)
 {
@@ -55,6 +55,7 @@ float calcReserva (short quartos[42][2], float preco_diaria[3], int periodo, int
 
 
 /*Função que lê dia e mês digitado pelo usuário e faz validação*/
+
 void readData (int *dia, int *mes)
 {
     scanf("%d/%d", dia, mes);
@@ -68,6 +69,7 @@ void readData (int *dia, int *mes)
 
 
 /*funcao que ler número de quartos digitado pelo usuário*/
+
 int readNumQuarto (short quartos [42][2])
 {
     int num_quarto;
@@ -148,7 +150,7 @@ int validaData(int dia, int mes, int ano)
 
 /*juliana_to_gregoriana ()*/
 /*converte data juliana em gregoriana*/
-/*int data juliana_to_gregoriana(int juliana)
+data juliana_to_gregoriana (int juliana)
 {
     int b, n, k, j, dia, mes, ano;
     long int data1;
@@ -170,7 +172,6 @@ int validaData(int dia, int mes, int ano)
     dt.mes = (int)data1%100;
     return dt;
 }
-*/
 
 /*gregoriana_to-juliana ()*/
 /*converte data gregoriana para juliana*/
@@ -256,7 +257,7 @@ void gerar1000reservas(short reserva[42][181])
             aux=rand()%3;
             if(aux==0)
             {
-                newcpf=gerandocpf();
+                newcpf=geradorcpf();
                 printf("%11d funcao\n",newcpf);
                 printf("%4d",a);
                 //periodo da reserva
@@ -292,17 +293,18 @@ void gerar1000reservas(short reserva[42][181])
 //reseta o programa
 void inicializa_dados (short reserva[42][181],short quartos [42][2],float preco_diaria[3], int MAX, double cpfs[MAX])
 {
+    int a,q,d,i;
+    int aux,ex;
+    int newcpf;
+
     resetacamas(quartos);
     //definepreco(preco_diaria);
     resetreservas(reserva);
     nomeiaquartos(quartos);
-    gerar1000reservas(reserva);
+    //gerar1000reservas(reserva);
 }
 
 
-/*
-int incluir_reserva (short reserva[42][181], short quartos [42][2], float preco_diaria[3],int camas,double bcpf,double cpfs[5000],int dia_in,int mes_in,int dia_out,int mes_out)
-=======
 
 
 /*Localiza index de posição do CPF no vetor cpfs
@@ -347,7 +349,6 @@ return id_cpf;
 
 
 /*int incluir_reserva (short reserva[42][181], short quartos [42][2], float preco_diaria[3],int camas,double bcpf,double cpfs[5000],int dia_in,int mes_in,int dia_out,int mes_out)
->>>>>>> master
 {
 
     int ini_vetor=dataToIndex(dia_in,mes_in);
@@ -436,7 +437,7 @@ return id_cpf;
 
 return realizar_reserva( reserva[41][182],quartos[41][2] ,bcpf,cpfs[5000],vaga_quartos[42],dia_in, mes_in,dia_out,mes_out );
 }
-*/
+
 
 int realizar_reserva(short reserva[41][182],short quartos[41][2], double bcpf,double cpfs[5000],int vaga_quartos[42],int dia_in,int mes_in,int dia_out,int mes_out)
 {
@@ -498,13 +499,76 @@ int realizar_reserva(short reserva[41][182],short quartos[41][2], double bcpf,do
 
 
 
+}*/
+
+
+
+
+
+//IMPRIMIR RESERVA
+
+void imprimir_mes (float preco_diaria[3], short reserva[42][181], short quartos[42][2], double *cpfs, int checkin, int dia_in, int mes_in, int checkout, int dia_out, int mes_out, int num_quarto, int id_cpf, int mes)
+{
+    int q, d, inicio, fim, periodo;
+    float preco;
+    if (mes == 1) {
+        inicio = 0;
+        fim = 30;
+    }
+    else if (mes == 2) {
+        inicio = 31;
+        fim = 59;
+    }
+    else if (mes == 3) {
+        inicio = 60;
+        fim = 91;
+    }
+    else if (mes == 4) {
+        inicio = 92;
+        fim = 122;
+    }
+    else if (mes == 5) {
+        inicio = 123;
+        fim = 154;
+    }
+    else if (mes == 6) {
+        inicio = 155;
+        fim = 185;
+    }
+    for (q=0; q<42; q++)
+    {
+        for (d=inicio; d<fim; d++)
+        {
+            num_quarto = quartos[q][0];
+            if (reserva[q][d] != -1)
+            {
+                id_cpf = reserva[q][d];
+                checkin = d;
+                while (reserva[q][d] == id_cpf)
+                {
+                    d++;
+                }
+                checkout = d;
+                periodo = checkout - checkin;
+                preco = calcReserva(quartos, preco_diaria, periodo, num_quarto);
+                indexToData(checkin, &dia_in, &mes_in);
+                indexToData(checkout, &dia_out, &mes_out);
+                printf("Quarto %d\n", num_quarto);
+                printf("CPF: %.0lf\n", cpfs[id_cpf]);
+                printf("Data de entrada: %d/%d\n", dia_in, mes_in);
+                printf("Data de saída: %d/%d\n", dia_out, mes_out);
+                printf("Valor pago: R$%.2lf\n\n", preco);
+
+            }
+
+        }
+    }
 }
-
-
 
 void imprimir_reserva (short reserva[42][181], short quartos[42][2], float preco_diaria[3], double *cpfs, char op)
 {
-/*    int id_quarto, id_cpf, checkin, checkout, i, andar, dia_in, mes_in, dia_out, mes_out, num_quarto, d, q;
+    int id_quarto, id_cpf, checkin, checkout, i, andar, dia_in, mes_in, dia_out, mes_out, num_quarto, d, q, periodo;
+    float preco;
     switch (op)
     {
         case '1':
@@ -517,9 +581,10 @@ void imprimir_reserva (short reserva[42][181], short quartos[42][2], float preco
                 }
             }
             andar = (int)(num_quarto/100);
-            printf("Quarto: %d\n", num_quarto);
-            printf("Andar: %dÂº\n", andar);
-            printf("Quantidade de camas: %d\n", quartos[id_quarto][1]);
+            printf("\nQuarto: %d\n", num_quarto);
+            printf("Andar: %dº\n", andar);
+            printf("Quantidade de camas: %d\n\n", quartos[id_quarto][1]);
+            printf("-------------------------\n\n");
             for (i=0; i<181; i++)
             {
                 if (reserva[id_quarto][i] != -1)
@@ -535,61 +600,41 @@ void imprimir_reserva (short reserva[42][181], short quartos[42][2], float preco
                     checkout = i;
                     indexToData(checkin, &dia_in, &mes_in);
                     indexToData(checkout, &dia_out, &mes_out);
+                    periodo = checkout - checkin;
+                    preco = calcReserva(quartos, preco_diaria, periodo, num_quarto);
                     printf("CPF: %.0lf\n", cpfs[id_cpf]);
                     printf("Data de entrada: %d/%d\n", dia_in, mes_in);
-                    printf("Data de saÃ­da: %d/%d\n", dia_out, mes_out);
+                    printf("Data de saída: %d/%d\n", dia_out, mes_out);
+                    printf("Valor pago: R$%.2lf\n\n", preco);
                 }
 
             }
         break;
         case '2':
-            printf("---JANEIRO---\n");
-            for (q=0; q<42; q++)
-            {
-                for (d=0; d<31; d++)
-                {
-                    num_quarto = quartos[q][0];
-                    if (reserva[q][d] != -1)
-                    {
-                        id_cpf = reserva[q][d];
-                        checkin = d;
-                        while (reserva[q][d] == id_cpf)
-                        {
-                            d++;
-                        }
-                        checkout = d;
-                        indexToData(checkin, &dia_in, &mes_in);
-                        indexToData(checkout, &dia_out, &mes_out);
-                        printf("Quarto %d\n", num_quarto);
-                        printf("CPF: %.0lf (%d/%d - %d/%d)\n", cpfs[id_cpf], dia_in, mes_in, dia_out, mes_out);
-                    }
-
-                }
-            }
-    }*/
+            printf("\n---JANEIRO---\n\n");
+            int mes = 1;
+            imprimir_mes(preco_diaria, reserva, quartos, cpfs, checkin, dia_in, mes_in, checkout, dia_out, mes_out, num_quarto, id_cpf, mes);
+            system("pause");
+            printf("\n---FEVEREIRO---\n\n");
+            mes = 2;
+            imprimir_mes(preco_diaria, reserva, quartos, cpfs, checkin, dia_in, mes_in, checkout, dia_out, mes_out, num_quarto, id_cpf, mes);
+            system("pause");
+            printf("\n---MARÇO---\n\n");
+            mes = 3;
+            imprimir_mes(preco_diaria, reserva, quartos, cpfs, checkin, dia_in, mes_in, checkout, dia_out, mes_out, num_quarto, id_cpf, mes);
+            system("pause");
+            printf("\n---ABRIL---\n\n");
+            mes = 4;
+            imprimir_mes(preco_diaria, reserva, quartos, cpfs, checkin, dia_in, mes_in, checkout, dia_out, mes_out, num_quarto, id_cpf, mes);
+            system("pause");
+            printf("\n---MAIO---\n\n");
+            mes = 5;
+            imprimir_mes(preco_diaria, reserva, quartos, cpfs, checkin, dia_in, mes_in, checkout, dia_out, mes_out, num_quarto, id_cpf, mes);
+            system("pause");
+            printf("\n---JUNHO---\n\n");
+            mes = 6;
+            imprimir_mes(preco_diaria, reserva, quartos, cpfs, checkin, dia_in, mes_in, checkout, dia_out, mes_out, num_quarto, id_cpf, mes);
+    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 #endif // FUNCOES_H_INCLUDED
