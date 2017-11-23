@@ -1,6 +1,8 @@
 #ifndef FUNCOES_H_INCLUDED
 #define FUNCOES_H_INCLUDED
 
+const int MAX = 5000;
+
 /*estrutura de data - usado para conversÃ£o de data juliana para gregoriana*/
 struct date
 {
@@ -8,6 +10,8 @@ struct date
     int mes;
 };
 typedef struct date data;
+
+
 
 /*Função que converte index para data*/
 void indexToData (int index, int *dia, int *mes)
@@ -31,8 +35,7 @@ int dataToIndex (int dia, int mes)
 /*função que retorna periodo de dias*/
 int tempo_reserva (int dia_in,int mes_in,int dia_out,int mes_out)
 {
-    int juli = gregoriana_to_juliana(dia_in, mes_in, 2018);
-    return juli - (gregoriana_to_juliana(dia_out,mes_out,2018));
+    return dataToIndex(dia_out, mes_out) - dataToIndex(dia_in, mes_in);
 }
 
 
