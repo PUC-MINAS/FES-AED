@@ -34,6 +34,9 @@
 		<Unit filename="cpfb.h">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
+		<Unit filename="inicializa.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
