@@ -5,10 +5,10 @@
 void inicializa_dados (short reserva[42][181],short quartos [42][2],float preco_diaria[3], int MAX, double cpfs[MAX], int *nvagas)
 {
     resetacamas(quartos);
-    //definepreco(preco_diaria);
+    definepreco(preco_diaria);
     resetreservas(reserva, MAX, cpfs, nvagas);
     nomeiaquartos(quartos);
-    gerar1000reservas(reserva, nvagas, cpfs, MAX);
+    //gerar1000reservas(reserva, nvagas, cpfs, MAX);
 }
 
 //gerando  1000 reservas
