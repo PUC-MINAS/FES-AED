@@ -193,7 +193,9 @@ void resetacamas(short quartos[42][2])
     //definindo numero de camas pra cada quarto
     quartos[0][1]   =1;//[numero do quarto][numero de camas]
     quartos[1][1]   =2;
-    quartos[2][1]   =3;    quartos[3][1]   =3;    quartos[4][1]   =1;    quartos[5][1]   =2;    quartos[6][1]   =3;    quartos[7][1]   =2;    quartos[8][1]   =3;    quartos[9][1]   =1;    quartos[10][1]  =1;    quartos[11][1]  =2;    quartos[12][1]  =3;    quartos[13][1]  =1;    quartos[14][1]  =3;    quartos[15][1]  =1;    quartos[16][1]  =2;    quartos[17][1]  =2;    quartos[18][1]  =1;    quartos[19][1]  =2;    quartos[20][1]  =3;    quartos[21][1]  =2;    quartos[22][1]  =3;    quartos[23][1]  =1;    quartos[24][1]  =1;    quartos[25][1]  =2;    quartos[26][1]  =3;    quartos[27][1]  =1;    quartos[28][1]  =3;    quartos[29][1]  =1;    quartos[30][1]  =2;    quartos[31][1]  =2;    quartos[32][1]  =1;    quartos[33][1]  =2;    quartos[34][1]  =3;    quartos[35][1]  =1;    quartos[36][1]  =2;    quartos[37][1]  =3;    quartos[38][1]  =3;    quartos[39][1]  =1;    quartos[40][1]  =2;    quartos[42][1]  =3;
+
+    quartos[2][1]   =3;    quartos[3][1]   =3;    quartos[4][1]   =1;    quartos[5][1]   =2;    quartos[6][1]   =3;    quartos[7][1]   =2;    quartos[8][1]   =3;    quartos[9][1]   =1;    quartos[10][1]  =1;    quartos[11][1]  =2;    quartos[12][1]  =3;    quartos[13][1]  =1;    quartos[14][1]  =3;    quartos[15][1]  =1;    quartos[16][1]  =2;    quartos[17][1]  =2;    quartos[18][1]  =1;    quartos[19][1]  =2;    quartos[20][1]  =3;    quartos[21][1]  =2;    quartos[22][1]  =3;    quartos[23][1]  =1;    quartos[24][1]  =1;    quartos[25][1]  =2;    quartos[26][1]  =3;    quartos[27][1]  =1;    quartos[28][1]  =3;    quartos[29][1]  =1;    quartos[30][1]  =2;    quartos[31][1]  =2;    quartos[32][1]  =1;    quartos[33][1]  =2;    quartos[34][1]  =3;    quartos[35][1]  =1;    quartos[36][1]  =2;    quartos[37][1]  =3;    quartos[38][1]  =3;    quartos[39][1]  =1;    quartos[40][1]  =2;    quartos[41][1]  =3;
+
 
 }
 
@@ -238,7 +240,9 @@ void nomeiaquartos(short quartos[42][2])
     }
 
 //gerando  1000 reservas
-/*void gerar1000reservas(short reserva[42][181])
+
+=======
+void gerar1000reservas(short reserva[42][181])
 {
     int x=0;
     int a=0;
@@ -288,7 +292,9 @@ void nomeiaquartos(short quartos[42][2])
         }
     }
 }
-*/
+
+
+
 
 //reseta o programa
 void inicializa_dados (short reserva[42][181],short quartos [42][2],float preco_diaria[3], int MAX, double cpfs[MAX])
@@ -298,8 +304,8 @@ void inicializa_dados (short reserva[42][181],short quartos [42][2],float preco_
     int newcpf;
 
     resetacamas(quartos);
-    definepreco(preco_diaria);
-    //resetreservas(reserva);
+    //definepreco(preco_diaria);
+    resetreservas(reserva);
     nomeiaquartos(quartos);
     //gerar1000reservas(reserva);
 }
@@ -345,6 +351,7 @@ int criar_id(double bcpf, double cpfs[5000])
 
 return id_cpf;
 }
+
  /* Localiza o na matriz de reservar o quarto que nao possuem ocupacao com o numero de camas indicados por paramentro */
 int localiza_quarto_vago(int quarto_aux[28],int camas,short reserva[42][181],short quartos [42][2],int vaga_quartos[42],int dia_in,int mes_in,int dia_out,int mes_out)
 {
@@ -495,22 +502,7 @@ int id_cpf = localizar_id(bcpf,cpfs);
 
 
 int incluir_reserva (short reserva[42][181], short quartos [42][2], float preco_diaria[3],int camas,double bcpf,double cpfs[5000],int dia_in,int mes_in,int dia_out,int mes_out)
-{
 
-    int ini_vetor=dataToIndex(dia_in,mes_in);
-    int final_vetor=dataToIndex(dia_out,mes_out)+1;
-    int tam_vetor=tempo_reserva(dia_in,mes_in,dia_out,mes_out);
-    int i,id,i_vaga,aux,vaga,vaga_quartos[42],j;
-    int quarto_aux[28];
-    for(i=0; i<28; i++)
-    {
-        quarto_aux[i]=-1;
-    };
-
-    for(i=0; i<42; i++)
-    {
-        vaga_quartos[i]=-1;
-    };
 
 id=localizar_id(bcpf,cpfs);
 
@@ -524,6 +516,34 @@ if(id==3)
 
 
 } else if(localiza_quarto_vago(quarto_aux,camas,reserva,quartos,vaga_quartos,dia_in,mes_in,dia_out,mes_out)==1)
+
+
+
+    for(i=0; i<42; i++)
+    {
+        if (reserva[i][j]==id)
+        {
+            vaga=0;
+            return  3;
+        };
+
+        for(j=ini_vetor; j<final_vetor; j++)
+        {
+            if (reserva[i][j]==id)
+            {
+                vaga=0;
+                continue;
+            }
+
+        }
+
+
+
+    };
+
+
+    if(localiza_quarto_vago(quarto_aux[28],camas,reserva[42][181],quartos [42][2],vaga_quartos[42],dia_in,mes_in,dia_out,mes_out)==1)
+
     {
         printf(" quartos disponiveis para reservar  com %d\n\n ",camas);
         for(i=0; i<28; i++)
@@ -531,6 +551,7 @@ if(id==3)
             if(vaga_quartos[i]!=-1)
             {
                 printf("disponivel quarto n° %d preco %f \n",quartos[vaga_quartos[i]][0],preco_diaria[camas-1]);
+
             }
             else{
                 break;
@@ -542,6 +563,7 @@ if(id==3)
 
             return 2;
     }else if(localiza_quarto_reserva(quarto_aux,camas,reserva,quartos,vaga_quartos,dia_in,mes_in,dia_out,mes_out)==1)
+
     {
         printf(" quartos disponiveis para reservar  com %d\n\n ",camas);
         for(i=0; i<28; i++)
@@ -625,7 +647,9 @@ int realizar_reserva(short reserva[42][181],short quartos[42][2], double bcpf,do
         if(op=='s'||'S')
         {
 
+
             id=criar_id(bcpf,cpfs);
+
             for(i=ini_vetor;i<final_vetor;i++)
             {
 
@@ -635,12 +659,15 @@ int realizar_reserva(short reserva[42][181],short quartos[42][2], double bcpf,do
             }
         }else
 		{
+
         printf("opcao invalida... [S]im ou [N]ao ");
+
 		val=0;
 		}
 
 
   }while(val=0);
+
 
 
 
@@ -721,8 +748,6 @@ void imprimir_reserva (short reserva[42][181], short quartos[42][2], float preco
             }
     }
 }
-
-
 
 
 
