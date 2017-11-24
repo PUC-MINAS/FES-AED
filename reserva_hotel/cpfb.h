@@ -376,7 +376,7 @@ int geracpf(int argc, char** argv)
     return newcpf;
 }
 */
-/*
+
 double gera_cpf3(){
 
     int i ;
@@ -410,7 +410,7 @@ double gera_cpf3(){
     }
     else {return -1;}
 }
-*/
+
 
 
 
