@@ -173,6 +173,7 @@ int main()
 
                     bcpf = readCpf();
 
+
                     msg = incluirReserva2 (reserva, quartos, preco_diaria, cpfs, num_quarto, bcpf, dia_in, mes_in, dia_out, mes_out);
                 }
                 else {
@@ -228,7 +229,7 @@ int main()
                 system("cls");
                 printf("---Cancelar Reserva---\n");
 
-                num_quarto = readNumQuarto(quartos);
+               num_quarto = readNumQuarto(quartos);
 
                 printf("Data do check in (dia/mes): ");
                 readData(&dia_in, &mes_in);
@@ -238,7 +239,10 @@ int main()
 
                 bcpf = readCpf();
 
-                //msg = excluir_reserva(reserva, num_quarto, dia, mes, periodo, bcpf, cpfs );
+                msg = excluirReserva(reserva, quartos, cpfs, num_quarto, bcpf, dia_in, mes_in, dia_out, mes_out);
+
+                //int excluir_reserva(short reserva[42][181], short quartos[42][2],int dia_in, int mes_in, int dia_out, int mes_out,int nvagas,int num_quarto, double bcpf)
+
 
                 switch (msg) {
                     case 0:
@@ -289,7 +293,7 @@ int main()
                     case 51:
                         system("cls");
                         printf("---Consultar dados de todos os quartos---\n");
-                        //msg = imprimir_reserva(reserva, quartos, preco_diaria, op);
+                        imprimir_reserva(reserva, quartos, preco_diaria, cpfs, op);
                         break;
                     case ESC:
                         system("cls");
