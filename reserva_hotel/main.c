@@ -6,7 +6,6 @@
 #include "cpfb.h"
 #include "inicializa.h"
 #define ESC 27
-#define MAX 5000
 
 
 
@@ -14,16 +13,12 @@ int main()
 {
     setlocale(LC_ALL,"portuguese"); //seta caracteres portugueses
     char op=0;
-    const int ano = 2018;
-    const int DATAINICIAL = gregoriana_to_juliana(1,1,2018);
     int num_quarto, dia, mes, periodo, nvagas;
     short reserva[42][181];  //reseva[id do quarto][dia] = id_cpfs
     short quartos [42][2]; //quartos[numero do quarto][quantidade de camas]
     float preco_diaria[3]; // preco_diaria[quant_camas-1] = preco
     double cpfs[MAX];
-    int juliana;
-    data dt;
-    int cpf, dig, q, d, id_cpf;
+    int cpf, dig, q, d, id_cpf, i;
     double bcpf;
     float preco;
 
@@ -65,7 +60,21 @@ int main()
     system("pause");*/
 
 
-    inicializa_dados(reserva, quartos, preco_diaria, MAX, cpfs, nvagas);
+    inicializa_dados(reserva, quartos, preco_diaria, cpfs, nvagas);
+
+    /*Teste para Inicializa dadados*/
+    /*
+    for (q = 0; q<42; q++) {
+        printf("%2d|", q);
+        for (d= 0; d<181; d++) {
+            printf("%3d|", reserva[q][d]);
+            if (d%15 == 0 && d!= 0) {
+                printf("\n  |");
+            }
+        }
+        printf("\n");
+        system("pause");
+    }*/
 
     //teste calcReserva
     /*quartos[0][0] = 100;
@@ -155,8 +164,8 @@ int main()
                         printf("Data de saída (dia/mes): ");
                         readData(&dia_out, &mes_out);
                     }
-
-                //check = print informacoes dos quartos disponíveis segundo o numero de camas solicitado. retornar true se tiver quartos que atendem a condição e false se não tiver
+                printf("\n---Quartos Disponiveis---\n");
+                check = printQuartos(reserva, quartos, cpfs, camas, dia_in, mes_in, dia_out, mes_out);
 
                 if (check){
 
@@ -164,14 +173,16 @@ int main()
 
                     bcpf = readCpf();
 
-                    //msg = incluir_reserva (reserva, quartos, preco_diaria, num_quarto, bcpf);
+                    msg = incluirReserva2 (reserva, quartos, preco_diaria, cpfs, num_quarto, bcpf, dia_in, mes_in, dia_out, mes_out);
                 }
                 else {
                     printf("Não temos quartos disponíveis com %d cama(s) para este período\n", camas);
                     if (camas < 3) {
                         printf("Temos estes quartos disponíveis:\n");
-                        //check = print informações de quartos disponíveis. retornar true se tiver quartos que atendem a condição e false se não tiver
-                        check = 1;
+                        check = printQuartos(reserva, quartos, cpfs, camas+1, dia_in, mes_in, dia_out, mes_out);
+                        if (camas+1 < 3) {
+                            check = printQuartos(reserva, quartos, cpfs, camas+2, dia_in, mes_in, dia_out, mes_out);
+                        }
                         if (check) {
                             printf("Deseja continuar com a reserva?(s/n)");
                             op = getch();
@@ -180,7 +191,7 @@ int main()
                                 num_quarto = readNumQuarto(quartos);
 
                                 bcpf = readCpf();
-                                //msg = incluir_reserva (reserva, quartos, preco_diaria, num_quarto, bcpf);
+                                msg = incluirReserva2 (reserva, quartos, preco_diaria, cpfs, num_quarto, bcpf, dia_in, mes_in, dia_out, mes_out);
                             }
                             else {
                                 msg = -1;
@@ -223,7 +234,7 @@ int main()
                 readData(&dia_in, &mes_in);
 
                 printf("Data do check out (dia/mes): ");
-                scanf("%d", &dia_out, &mes_out);
+                readData(&dia_out, &mes_out);
 
                 bcpf = readCpf();
 

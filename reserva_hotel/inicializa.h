@@ -1,25 +1,28 @@
 #ifndef INICIALIZA_H_INCLUDED
 #define INICIALIZA_H_INCLUDED
 
+
+
 //reseta o programa
-void inicializa_dados (short reserva[42][181],short quartos [42][2],float preco_diaria[3], int MAX, double cpfs[MAX], int *nvagas)
+void inicializa_dados (short reserva[42][181],short quartos [42][2],float preco_diaria[3], double cpfs[MAX], int *nvagas)
 {
     resetacamas(quartos);
     definepreco(preco_diaria);
-    resetreservas(reserva, MAX, cpfs, nvagas);
+    resetreservas(reserva, cpfs, nvagas);
     nomeiaquartos(quartos);
     //gerar1000reservas(reserva, nvagas, cpfs, MAX);
+    gerar1000reservas2(reserva, nvagas, cpfs);
 }
 
 //gerando  1000 reservas
-void gerar1000reservas(short reserva[42][181], int *nvagas, int MAX, double cpfs[MAX])
+void gerar1000reservas(short reserva[42][181], int *nvagas, double cpfs[MAX])
 {
     int x=0;
     int i=0;
     int a=0;
     int q,d,aux;
 
-    unsigned long int cpfnovo;
+    double cpfnovo;
     int l;
 
     while (a<1000)
@@ -51,7 +54,7 @@ void gerar1000reservas(short reserva[42][181], int *nvagas, int MAX, double cpfs
                     {
                         if(cpfs[i]==-1)
                         {
-                            cpfnovo=geracpf1();
+                            cpfnovo=gera_cpf3();
                             cpfs[i]=cpfnovo;
                             a++;
                             break;
@@ -67,6 +70,45 @@ void gerar1000reservas(short reserva[42][181], int *nvagas, int MAX, double cpfs
 
         }
     }
+}
+
+//Correção gerar1000reservas
+void gerar1000reservas2(short reserva[42][181], int *nvagas, double cpfs[MAX]){
+
+    int a,q,d,i;
+    int periodo = 0;
+    int tst = 1, id_cpf;
+    double newcpf;
+
+    while (a <1000) {
+
+        do {
+            tst =1 ;
+            q = rand()%42;
+            d = rand()%170;
+            periodo = rand()%8;
+            if (periodo < 3) {periodo = 3;}
+
+            for (i = 0; i < periodo; i++){
+                if (reserva[q][d+i] != -1){
+                    tst = 0;  // tst = 0, periodo com ocupação
+                    break;
+                }
+            }
+        }while (tst == 0);
+
+        newcpf = gera_cpf3();
+        id_cpf = criar_id(newcpf, cpfs);
+        cpfs[id_cpf] = newcpf;
+        for (i = 0; i < periodo; i++) {
+            reserva[q][d+i] = id_cpf;
+        }
+
+        //Descomente o printf abaixo para fazer teste
+        //printf("A = %d - Quarto = %3d, dia= %3d, periodo= %d, cpf= %11.0lf\n", a, q, d, periodo, newcpf);
+        a++;
+    }
+    system("pause");
 }
 
 //definindo o numero dos quartos
@@ -145,7 +187,7 @@ void definepreco (float preco_diaria[3])
 }
 
 //reseta todas as reservas
-void resetreservas(short reserva[42][181], int MAX, double cpfs[MAX], int *nvagas)
+void resetreservas(short reserva[42][181], double cpfs[MAX], int *nvagas)
     {
         int a,q;
         nvagas=0;
