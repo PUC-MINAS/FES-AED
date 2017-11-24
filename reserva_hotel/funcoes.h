@@ -581,7 +581,7 @@ void imprimir_mes (float preco_diaria[3], short reserva[42][181], short quartos[
 void imprimir_reserva (short reserva[42][181], short quartos[42][2], float preco_diaria[3], double *cpfs, char op)
 {
     int id_quarto, id_cpf, checkin, checkout, i, andar, dia_in, mes_in, dia_out, mes_out, num_quarto, d, q, periodo;
-    float preco;
+    float preco, somatorio = 0;
     switch (op)
     {
         case '1':
@@ -653,7 +653,9 @@ void imprimir_reserva (short reserva[42][181], short quartos[42][2], float preco
             printf("\n---JUNHO---\n\n");
             mes = 6;
             imprimir_mes(preco_diaria, reserva, quartos, cpfs, checkin, dia_in, mes_in, checkout, dia_out, mes_out, num_quarto, id_cpf, mes);
+            break;
 	case '3':
+	    printf("Entrou no case 3 \n");
             for (i=0; i<42; i++)
             {
                 num_quarto = quartos[i][0];
@@ -818,6 +820,146 @@ int incluirReserva2 (short reserva[42][181], short quartos[42][2], float preco_d
     }
 
     return error;
+}
+
+
+//funcao excluir reserva;
+
+int excluir_reserva(short reserva[42][181], short quartos[42][2], double cpfs[MAX], int dia_in, int mes_in, int dia_out, int mes_out,int nvagas,int num_quarto, double bcpf)
+{
+    int entrada,saida,cont,valida_exclusao,quarto,q,d,aux, id_cpf, periodo;
+    valida_exclusao=0;
+    int cont1 = 0;
+
+
+
+
+   //0 - indica que o quarto não existe;
+    entrada=gregoriana_to_juliana(dia_in,mes_in,2018);
+
+    saida=gregoriana_to_juliana(dia_out,mes_out,2018);
+
+    periodo = saida - entrada;
+
+    printf("to aqui %d\n", cont1++);
+    //1 - indica periodo invalido;
+    if(saida<entrada){
+    return 1;
+    }
+    else{
+        valida_exclusao++;
+    }
+
+    printf("to aqui %d\n", cont1++);
+
+    //2 - Indica reserva inexistente no periodo;
+
+   /*for (q=0;q<42;q++){
+    if (quartos[q][0]==num_quarto){
+            quarto=q;
+    }
+   }*/
+
+   quarto = quartoToIndex(quartos, num_quarto);
+
+    printf("to aqui %d\n", cont1++);
+
+    id_cpf = criar_id(bcpf, cpfs);
+
+    if (verificaOcupacao(reserva, quarto, entrada, periodo)) {
+        valida_exclusao++;
+    }
+    else {
+        return 2;
+    }
+
+    /*
+   for(d=entrada;d<saida+1;d++){
+    if(reserva[quarto][d]==id_cpf){
+        valida_exclusao++;
+    }
+    else{
+        return 2;
+    }
+   }
+   */
+    printf("to aqui %d\n", cont1++);
+
+
+//4 – Indica que o CPF não corresponde com a reserva;
+    aux=0;
+    for (q=0; q<42; q++)
+    {
+        for (d=0; d<181;d++)
+        {
+            if (bcpf==reserva[q][d])
+            {
+                valida_exclusao++;
+                aux=1;
+            }
+        }
+    }
+    if (aux==0)
+    {
+        return 4;
+        cont=0;
+    }
+
+//excluir reserva; atualizar o número de vagas no hotel;
+
+    if(valida_exclusao==3)
+    {
+        cont=1;
+        for(d=entrada;d<saida+1;d++){
+        reserva[quarto][d]=-1;
+        nvagas++;
+    }
+    }
+
+
+    if(cont==1)
+    {
+//3 - indica exclusão realizada com sucesso;
+       return 3;
+    }
+}
+
+int verificaOcupacaoExcluir(short reserva[42][181], int id_quarto, int id_checkin, int periodo, int id_cpf) {
+    int i,d;
+
+        for (d=0; d<periodo; d++ ) {
+            if (reserva[id_quarto][id_checkin+d] == id_cpf) {
+                return 1;
+            }
+        }
+
+
+    return 0;
+}
+
+int excluirReserva (short reserva[42][181], short quartos[42][2], double cpfs[MAX], int num_quarto, double bcpf, int dia_in, int mes_in, int dia_out, int mes_out) {
+    int id_quarto = quartoToIndex(quartos, num_quarto);
+    int id_checkin = dataToIndex(dia_in, mes_in);
+    int periodo = tempo_reserva(dia_in, mes_in, dia_out, mes_out);
+    int id_cpf = criar_id(bcpf, cpfs);
+    int ocup = verificaOcupacaoExcluir(reserva, id_quarto, id_checkin, periodo, id_cpf);
+    int d, error;
+
+    if (!validaNumQuarto(num_quarto, quartos)) {
+        return error = 0;
+    }
+
+    if (ocup) {
+        for (d=0; d<periodo; d++) {
+            reserva[id_quarto][id_checkin+d] = -1;
+        }
+        cpfs[id_cpf] = -1;
+        error = 3;
+    }
+    else error =2;
+
+    return error;
+
 }
 
 
