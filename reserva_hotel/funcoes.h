@@ -653,6 +653,42 @@ void imprimir_reserva (short reserva[42][181], short quartos[42][2], float preco
             printf("\n---JUNHO---\n\n");
             mes = 6;
             imprimir_mes(preco_diaria, reserva, quartos, cpfs, checkin, dia_in, mes_in, checkout, dia_out, mes_out, num_quarto, id_cpf, mes);
+	case '3':
+            for (i=0; i<42; i++)
+            {
+                num_quarto = quartos[i][0];
+                andar = (int)(num_quarto/100);
+                id_quarto = i;
+                printf("\nQuarto: %d\n", num_quarto);
+                printf("Andar: %dº\n", andar);
+                printf("Quantidade de camas: %d\n\n", quartos[id_quarto][1]);
+                somatorio = 0;
+                for (d=0; d<181; d++)
+                {
+                    if (reserva[id_quarto][d] != -1)
+                    {
+                        id_cpf = reserva[id_quarto][d];
+                        checkin = d;
+
+                        while (reserva[id_quarto][d] == id_cpf)
+                        {
+                            d++;
+                        }
+                        checkout = d;
+                        indexToData(checkin, &dia_in, &mes_in);
+                        indexToData(checkout, &dia_out, &mes_out);
+                        periodo = checkout - checkin;
+                        preco = calcReserva(quartos, preco_diaria, periodo, num_quarto);
+                        somatorio = somatorio + preco;
+                        printf("CPF: %.0lf\n", cpfs[id_cpf]);
+                        printf("Data de entrada: %d/%d\n", dia_in, mes_in);
+                        printf("Data de saída: %d/%d\n", dia_out, mes_out);
+                        printf("Valor pago: R$%.2lf\n\n", preco);
+                    }
+                }
+                printf("Receita do quarto: R$%.2lf\n\n", somatorio);
+                system("pause");
+            }
     }
 }
 
